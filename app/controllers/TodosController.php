@@ -38,7 +38,7 @@ class TodosController extends ControllerBase{
 	#[Post(path: "todos/add", name: "todos.add")]
 	public function addElement(){
         $list=USession::get(self::LIST_SESSION_KEY);
-        if(URequest::has('elements')){
+        if(URequest::filled('elements')){//Ca passe dans la boucle parce que ca prend le dessus
             $elemnts = explode("\n", URequest::post('elements'));
             foreach ($elemnts as $elm){
                 $list[] = $elm;
@@ -79,7 +79,7 @@ class TodosController extends ControllerBase{
 
 	#[Get(path: "todos/new/{force}", name: "todos.new")]
 	public function newlist($force = false){
-        if($force != false | !USession::exists(self::LIST_SESSION_KEY)){
+        if($force != false || !USession::exists(self::LIST_SESSION_KEY)){
             USession::set(self::LIST_SESSION_KEY, []);
             $this->displayList(USession::get(self::LIST_SESSION_KEY));
         }else if(USession::exists(self::LIST_SESSION_KEY)) {
@@ -103,16 +103,13 @@ class TodosController extends ControllerBase{
 	}
 
 	public function displayList($list){
-		$this->loadView('TodosController/displayList.html', ['list'=>$list]);
+        $this->jquery->change('#multiple', '$("._form").toggle();');
+		$this->jquery->renderView('TodosController/displayList.html', ['list'=>$list]);
 	}
 
 	public function showMessage(string $header,string $message,string $type = 'info',string $icon = 'info cirlce',array $buttons = []){
 		$this->loadView('TodosController/showMessage.html',
-        compact('header', 'message','type', 'icon', 'buttons'));
-
-  //      $this->jquery->click('button','$(".elm").toggle();
-  //      alert("poue");');
-  //      $this->jquery->renderDefaultView();
+            compact('header', 'message','type', 'icon', 'buttons'));
 	}
 
 
