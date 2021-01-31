@@ -53,13 +53,23 @@ class TodosController extends ControllerBase{
 
 	#[Get(path: "todos/delete/{index}", name: "todos.delete")]
 	public function deleteElement($index){
-		
+        $list=USession::get(self::LIST_SESSION_KEY);
+        if(isset($list[$index])){
+            array_splice($list, $index, 1);
+            USession::set(self::LIST_SESSION_KEY, $list);
+        }
+        $this->displayList($list);
 	}
 
 
 	#[Post(path: "todos/edit/{index}", name: "todos.edit")]
 	public function editElement($index){
-		
+        $list=USession::get(self::LIST_SESSION_KEY);
+        if(isset($list[$index])){
+            $list[$index] = URequest::post('editElement');
+            USession::set(self::LIST_SESSION_KEY, $list);
+        }
+        $this->displayList($list);
 	}
 
 
@@ -93,6 +103,9 @@ class TodosController extends ControllerBase{
 
 	#[Get(path: "todos/saveList", name: "todos.save")]
 	public function saveList(){
+        $list=USession::get(self::LIST_SESSION_KEY);
+        //Sauvegarde $list en cache, avec l'identifiant $id
+        //CacheManager::$cache->store(self::CACHE_KEY . $id, $list);
 		
 	}
 
@@ -102,10 +115,19 @@ class TodosController extends ControllerBase{
 		$this->loadView('TodosController/menu.html');
 	}
 
-	public function displayList($list){
+/*	public function displayList($list){
+        $this->jquery->click('#multiple', '$("._form").toggle();');
+        //$this->jquery->click('#multiple')
+       // $this->jquery->change('#multiple', '$(".formEditElement").toggle();');
+		$this->jquery->renderView('TodosController/displayList2.html', ['list'=>$list]);
+	}*/
+
+    public function displayList($list){
         $this->jquery->change('#multiple', '$("._form").toggle();');
-		$this->jquery->renderView('TodosController/displayList.html', ['list'=>$list]);
-	}
+        $this->jquery->click(".buttonEdit", '$(".item" + this.id).toggle();');
+
+        $this->jquery->renderView('TodosController/displayList.html', ['list'=>$list]);
+    }
 
 	public function showMessage(string $header,string $message,string $type = 'info',string $icon = 'info cirlce',array $buttons = []){
 		$this->loadView('TodosController/showMessage.html',

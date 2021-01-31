@@ -3,7 +3,14 @@
     <div class="ui inverted relaxed divided list">
         {% for item in list %}
         <div class="item">
-            {{item}}
+            <div class="item{{ loop.index0 }}">{{item}}</div>
+            <form class="ui inline inverted form " action="{{ path("todos.edit") ~ loop.index0}}" method="post">
+                <div class="field item{{ loop.index0 }}" style="display: none">
+                    <input placeholder="Edit element" name="editElement">
+                </div>
+            </form>
+            <button class="ui circular mini icon inverted red button right floated" onclick="location.href='{{ path("todos.delete") ~ loop.index0}}'"><i class="ui trash icon"></i></button>
+            <button class="ui circular mini icon inverted button right floated buttonEdit" id="{{ loop.index0 }}"><i class="ui edit icon"></i></button>
         </div>
         {% endfor %}
         <div class="item">
