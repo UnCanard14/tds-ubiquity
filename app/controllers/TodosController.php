@@ -3,6 +3,7 @@ namespace controllers;
 use Ubiquity\attributes\items\router\Get;
 use Ubiquity\attributes\items\router\Post;
 use Ubiquity\attributes\items\router\Route;
+use Ubiquity\cache\CacheManager;
 use Ubiquity\controllers\Router;
 use Ubiquity\utils\http\URequest;
 use Ubiquity\utils\http\USession;
@@ -75,13 +76,23 @@ class TodosController extends ControllerBase{
 
 	#[Get(path: "todos/loadList/{uniqid}", name: "todos.loadList")]
 	public function loadList($uniqid){
-		
+        if (CacheManager::$cache->exists(self::CACHE_KEY . $uniqid)) {
+            $list = CacheManager::$cache->fetch(self::CACHE_KEY . $uniqid);
+            USession::set(self::LIST_SESSION_KEY, $list);
+            $this->showMessage("Chargé Liste par get", $uniqid);
+        }
+        $this->displayList($list);
 	}
 
 
 	#[Post(path: "todos/loadList", name: "todos.loadListPost")]
 	public function loadListFromForm(){
-		
+        $id=URequest::post('id');
+        if (CacheManager::$cache->exists(self::CACHE_KEY . $id)) {
+            $list = CacheManager::$cache->fetch(self::CACHE_KEY . $id);
+            $this->showMessage("Chargé Liste", $id);
+        }
+        $this->displayList($list);
 	}
 
 
@@ -103,10 +114,12 @@ class TodosController extends ControllerBase{
 
 	#[Get(path: "todos/saveList", name: "todos.save")]
 	public function saveList(){
+        $id = uniqid();
         $list=USession::get(self::LIST_SESSION_KEY);
-        //Sauvegarde $list en cache, avec l'identifiant $id
-        //CacheManager::$cache->store(self::CACHE_KEY . $id, $list);
-		
+        CacheManager::$cache->store(self::CACHE_KEY . $id, $list);
+
+        $this->showMessage("Liste Sauvegardée", $id);
+        $this->displayList($list);
 	}
 
 

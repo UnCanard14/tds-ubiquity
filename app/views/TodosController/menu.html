@@ -9,6 +9,13 @@
                 <input type="checkbox" id="multiple">
                 <label for="multiple">Saisie multiple</label>
             </div>
+
+            <form action="{{ path('todos.loadListPost') }}" method="post">
+                <div class="ui action inverted input">
+                    <input type="text" placeholder="List id..." name="id">
+                    <button class="ui inverted button">Ouvrir</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
