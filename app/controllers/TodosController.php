@@ -43,8 +43,13 @@ class TodosController extends ControllerBase{
             $list = USession::get(self::LIST_SESSION_KEY, []);
             return $this->displayList($list);//$list);
         }
-        $this->showMessage('Bonjour', "Todolist permet de gerer des listes", 'info', 'info circle',
-            [['url' =>Router::path('todos.new'),'caption'=>'Créer une nouvelle liste','style'=>'basic inverted']]);
+        if(USession::exists("activeUser")){
+            $this->showMessage('Bonjour '. USession::get("activeUser"), "Todolist permet de gerer des listes", 'info', 'info circle',
+                [['url' =>Router::path('todos.new'),'caption'=>'Créer une nouvelle liste','style'=>'basic inverted']]);
+        }else{
+            $this->showMessage('Bonjour', "Todolist permet de gerer des listes", 'info', 'info circle',
+                [['url' =>Router::path('todos.new'),'caption'=>'Créer une nouvelle liste','style'=>'basic inverted']]);
+        }
 	}
 
 	#[Post(path: "todos/add", name: "todos.add")]
@@ -131,7 +136,22 @@ class TodosController extends ControllerBase{
         $list=USession::get(self::LIST_SESSION_KEY);
         CacheManager::$cache->store(self::CACHE_KEY . $id, $list);
 
-        $this->showMessage("Liste Sauvegardée", $id);
+        if(USession::exists("activeUser")) {
+            if (CacheManager::$cache->exists("datas/user/" . USession::get('activeUser'))) {
+                $lists = CacheManager::$cache->fetch("datas/user/" . USession::get('activeUser'));
+                $lists[] = $id;
+                CacheManager::$cache->store("datas/user/" . USession::get('activeUser'), $lists);
+                $this->showMessage("Liste Sauvegardée sur " . USession::get('activeUser'), $id);
+            } else {
+                $nlists[] = $id;
+                CacheManager::$cache->store("datas/user/" . USession::get('activeUser'), $nlists);
+                $this->showMessage("Liste Sauvegardée sur " . USession::get('activeUser'), $id);
+            }
+        }else{
+            $this->showMessage("Liste Sauvegardée", $id);
+        }
+
+
         $this->displayList($list);
 	}
 
@@ -149,12 +169,9 @@ class TodosController extends ControllerBase{
         $mdp = URequest::password_hash('mdp');
         if (!CacheManager::$cache->exists("data/user/" .md5($email))){
             CacheManager::$cache->store("data/user/" . md5($email), ['password' => $mdp, 'email' => $email]);
-            //if(liste de liste de l'utilisateur existe){
-                //$lesListesDelUtilisateur
-                //$this->Display(lesListesDelUtilisateur);
-            // }
+            $this->showMessage("Succès", "Création Réussie");
         }else{
-            echo 'L identifiant existe déjà';
+            $this->showMessage("Erreur", "L'identifiant existe déja");
         }
     }
 	
@@ -190,4 +207,14 @@ class TodosController extends ControllerBase{
         return new LoginController($this);
         // TODO: Implement getAuthController() method.
     }
+
+	#[Route(path: "todos/mylists", name: 'todos.mylists')]
+	public function mylists(){
+        $lists = CacheManager::$cache->fetch("datas/user/" . USession::get('activeUser'));//tester la variable
+        foreach ($lists as $id) {
+            $myLists [$id] = CacheManager::$cache->fetch(self::CACHE_KEY . $id);
+        }
+        $this->displayList(array_keys($myLists));
+	}
+
 }
