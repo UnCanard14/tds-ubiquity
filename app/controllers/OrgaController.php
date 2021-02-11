@@ -4,9 +4,11 @@ namespace controllers;
  use Ubiquity\attributes\items\router\Get;
  use Ubiquity\attributes\items\router\Post;
  use Ubiquity\attributes\items\router\Route;
+ use Ubiquity\controllers\Router;
  use Ubiquity\orm\DAO;
  use Ubiquity\orm\repositories\ViewRepository;
  use Ubiquity\utils\http\URequest;
+ use Ubiquity\utils\http\UResponse;
 
  /**
   * Controller OrgaController
@@ -20,7 +22,7 @@ class OrgaController extends ControllerBase{
         $this->repo = new ViewRepository($this, Organization::class);
     }
 
-    #[Route('orga')]
+    #[Route(path : 'orga', name: 'orga.menu')]
 	public function index(){
         $this->repo->all("",false);
 		$this->loadView("OrgaController/index.html");
@@ -49,8 +51,27 @@ class OrgaController extends ControllerBase{
                 echo 'Remplir les champs';
             }
         }
+        $this->loadView("OrgaController/orgaForm.html",['title'=> 'Ajouter Organisation', 'route'=>'orga.addOrgaForm']);
+    }
+
+    #[Route(path : 'orga/update/{idOrga}', name : "orga.updateOrga")]
+    public function updateOrga($idOrga){
+        echo $idOrga;
+        $this->loadView("OrgaController/orgaForm.html",['title'=> 'Mettre à jour organisation', 'route'=>'orga.updateOrgaForForm','idOrga'=>$idOrga]);
+    }
+
+    #[Post(path : 'orga/update', name : "orga.updateOrgaForForm")]
+    public function updateOrgaForForm(){
         print_r($_POST);
-        $this->loadView("OrgaController/orgaForm.html");
+
+        $orga=DAO::getById(Organization::class,URequest::post('id'));
+        $orga->setName(URequest::post('name'));
+        $orga->setDomain(URequest::post('domain'));
+        $orga->setAliases(URequest::post('alias'));
+        URequest::setValuesToObject($orga);
+        if(DAO::update($orga)){
+            UResponse::header('location','/'.Router::path('orga.menu'));
+        }
     }
 
 }

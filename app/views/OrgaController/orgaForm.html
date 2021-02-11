@@ -1,10 +1,10 @@
 {% extends "OrgaController/base.html" %}
 {% block header %}
-    <h1>Ajouter Organisation</h1>
+    <h1>{{ title }}</h1>
 {% endblock %}
 
 {% block body %}
-    <form action="{{ path('orga.addOrgaForm') }}" method="post">
+    <form action="{{ path(route) }}" method="post">
         <label>Nom</label>
         <input name="name" type="text">
         <label>Domaine</label>
@@ -13,5 +13,8 @@
         <input name="alias" type="text">
         <button value="valid" name="valid">Valider</button>
         <button value="cancel" name="cancel">Annuler</button>
+        {% if idOrga is defined %}
+            <input type="hidden" name="id" value="{{ idOrga }}">
+        {% endif %}
     </form>
 {% endblock %}
