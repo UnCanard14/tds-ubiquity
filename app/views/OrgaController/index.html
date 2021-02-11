@@ -6,9 +6,9 @@
 <ul>
     {% for orga in all %}
         <li>
-            <form action="{{ path('orga.updateOrga', [orga.id]) }}" method="post">
-                <a href="{{ path('orga.getOne', [orga.id]) }}">{{ orga }}</a><button>Edit</button>
-            </form>
+            <a href="{{ path('orga.getOne', [orga.id]) }}">{{ orga }}</a>
+            <form action="{{ path('orga.updateOrga', [orga.id]) }}" method="post"><button>Edit</button></form>
+            <form action="{{ path('orga.delete', [orga.id]) }}" method="post"><button>Supprimer</button></form>
         </li>
     {% endfor %}
 </ul>

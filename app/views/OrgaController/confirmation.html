@@ -1,0 +1,14 @@
+{% extends "OrgaController/base.html" %}
+{% block header %}
+    <h1>{{ title }}</h1>
+{% endblock %}
+
+{% block body %}
+    <form method="post" action="{{ path("orga.deletePost") }}">
+        {% if idOrga is defined %}
+            <input type="hidden" name="id" value="{{ idOrga }}">
+        {% endif %}
+        <button>Confirmer</button>
+    </form>
+    <button onclick="location.href = '{{ path('orga.menu') }}' ;">Annuler</button>
+{% endblock %}

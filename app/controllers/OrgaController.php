@@ -74,4 +74,19 @@ class OrgaController extends ControllerBase{
         }
     }
 
+    #[Route(path : 'orga/delete/{idOrga}', name : "orga.delete")]
+    public function delete($idOrga){
+        echo $idOrga;
+        $this->loadView("OrgaController/confirmation.html",['title'=> 'Supprimer', 'idOrga'=>$idOrga]);
+    }
+
+    #[Route(path : 'orga/delete', name : "orga.deletePost")]
+    public function deletePost(){
+        if(DAO::delete(Organization::class,URequest::post('id'))){
+            UResponse::header('location','/'.Router::path('orga.menu'));
+        }
+    }
+
+
+
 }
