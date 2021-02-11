@@ -1,0 +1,22 @@
+{% extends "OrgaController/base.html" %}
+{% block header %}
+    <h1>Ajouter Groupe</h1>
+{% endblock %}
+
+{% block body %}
+    <form method="post" action="{{ path('orga.addGroupForm') }}">
+        <label>Nom</label>
+        <input name="name" type="text">
+        <label>Email</label>
+        <input name="email" type="text">
+        <label>Alias</label>
+        <input name="alias" type="text">
+        <select name="organization">
+            {% for orga in all %}
+                <option value="{{ orga.id }}">{{ orga }}</option>
+            {% endfor %}
+        </select>
+        <button value="valid" name="valid">Valider</button>
+        <button value="cancel" name="cancel">Annuler</button>
+    </form>
+{% endblock %}

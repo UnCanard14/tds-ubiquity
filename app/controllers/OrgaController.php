@@ -1,5 +1,6 @@
 <?php
 namespace controllers;
+ use models\Groupe;
  use models\Organization;
  use Ubiquity\attributes\items\router\Get;
  use Ubiquity\attributes\items\router\Post;
@@ -80,13 +81,30 @@ class OrgaController extends ControllerBase{
         $this->loadView("OrgaController/confirmation.html",['title'=> 'Supprimer', 'idOrga'=>$idOrga]);
     }
 
-    #[Route(path : 'orga/delete', name : "orga.deletePost")]
+    #[Path(path : 'orga/delete', name : "orga.deletePost")]
     public function deletePost(){
         if(DAO::delete(Organization::class,URequest::post('id'))){
             UResponse::header('location','/'.Router::path('orga.menu'));
         }
     }
 
+    #[Route(path : 'orga/addGroup', name : "orga.addGroup")]
+    public function addGroup(){
+        $this->repo->all("",false);
+        $this->loadView("OrgaController/orgaGroupForm.html");
+    }
 
+    #[Post(path : 'orga/addGroupForm', name : "orga.addGroupForm")]
+    public function addGroupForm(){
+        $group=new Groupe();
+        $group->setAliases(URequest::post('alias'));
+        $group->setEmail(URequest::post('email'));
+        $group->setName(URequest::post('name'));
+        URequest::setValuesToObject($group);
+        $orga=DAO::getById( Organization::class, URequest::post('organization'));
+        $group->setOrganization($orga);
+        DAO::insert($group);
+        UResponse::header('location','/'.Router::path('orga.menu'));
+    }
 
 }

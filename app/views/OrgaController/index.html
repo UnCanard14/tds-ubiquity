@@ -11,8 +11,13 @@
             <form action="{{ path('orga.delete', [orga.id]) }}" method="post"><button>Supprimer</button></form>
         </li>
     {% endfor %}
+
 </ul>
     <form method="post" action="{{ path('orga.addOrgaForm') }}">
         <button>Ajouter Organisation</button>
+    </form>
+
+    <form method="post" action="{{ path('orga.addGroup') }}">
+        <button>Ajouter Groupe</button>
     </form>
 {% endblock %}
