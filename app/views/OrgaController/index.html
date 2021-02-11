@@ -8,4 +8,7 @@
     <li><a href="{{ path('orga.getOne', [orga.id]) }}">{{ orga }}</a></li>
 {% endfor %}
 </ul>
+    <form method="post" action="{{ path('orga.addOrgaForm') }}">
+        <button>Ajouter Organisation</button>
+    </form>
 {% endblock %}
