@@ -1,29 +1,49 @@
 <?php
 return array(
-		"siteUrl"=>"http://127.0.0.1/tds/",
-		"database"=>[
-				"type"=>"mysql",
-				"dbName"=>"",
-				"serverName"=>"127.0.0.1",
-				"port"=>"3306",
-				"user"=>"root",
-				"password"=>"",
-				"options"=>[],
-				"cache"=>false
-		],
-		"sessionName"=>"tds",
-		"namespaces"=>[],
-		"templateEngine"=>'Ubiquity\\views\\engine\\Twig',
-		"templateEngineOptions"=>array("cache"=>false),
-		"test"=>false,
-		"debug"=>false,
-		"logger"=>function(){return new \Ubiquity\log\libraries\UMonolog("tds",\Monolog\Logger::INFO);},
-		"di"=>["@exec"=>["jquery"=>function($controller){
+	"siteUrl"=>"http://127.0.0.1:8090/",
+	"database"=>[
+			"type"=>"mysql",
+			"dbName"=>"groups",
+			"serverName"=>"127.0.0.1",
+			"port"=>3306,
+			"user"=>"root",
+			"password"=>"",
+			"options"=>[],
+			"cache"=>false
+			],
+	"sessionName"=>"s60210af319a07",
+	"namespaces"=>[],
+	"templateEngine"=>"Ubiquity\\views\\engine\\Twig",
+	"templateEngineOptions"=>[
+			"cache"=>false
+			],
+	"test"=>false,
+	"debug"=>true,
+	"logger"=>function (){
+		return new \Ubiquity\log\libraries\UMonolog(array (
+  'host' => '127.0.0.1',
+  'port' => 8090,
+  'sessionName' => 's60210af319a07',
+)['sessionName'], \Monolog\Logger::INFO);
+	},
+	"di"=>[
+			"@exec"=>[
+					"jquery"=>function ($controller){
 						return \Ubiquity\core\Framework::diSemantic($controller);
-					}]],
-		"cache"=>["directory"=>"cache/","system"=>"Ubiquity\\cache\\system\\ArrayCache","params"=>[]],
-		"mvcNS"=>["models"=>"models","controllers"=>"controllers","rest"=>""],
-		"isRest"=>function(){
+					}
+					]
+			],
+	"cache"=>[
+			"directory"=>"cache/",
+			"system"=>"Ubiquity\\cache\\system\\ArrayCache",
+			"params"=>[]
+			],
+	"mvcNS"=>[
+			"models"=>"models",
+			"controllers"=>"controllers",
+			"rest"=>""
+			],
+	"isRest"=>function (){
 			return \Ubiquity\utils\http\URequest::getUrlParts()[0]==="rest";
 		}
-);
+	);
