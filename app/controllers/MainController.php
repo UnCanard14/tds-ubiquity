@@ -63,10 +63,10 @@ class MainController extends ControllerBase{
 
     #[Route('groups/list', name:'groups.list')]
     public function listGroups(){
-        $idOrga = USession::get('odOrga');
+        $idOrga = USession::get('idOrga');
         $groups=DAO::getAll(Group::class,'idOrganization= ?', false, [$idOrga]);
         $this->uiService->listGroups($groups);
-        $this->jquery->renderView();
+        $this->jquery->renderDefaultView();
     }
 
     #[Get('newOrga', name:'newOrga')]
@@ -78,6 +78,12 @@ class MainController extends ControllerBase{
     #[Post('addOrga', name:'addOrga')]
     public function addOrga(){
 
+    }
+
+    #[Get('newUser', name:'newUser')]
+    public function userForm(){
+        $this->uiService->userForm(new User());
+        $this->jquery->renderDefaultView();
     }
 
 }

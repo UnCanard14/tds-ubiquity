@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9e2c033c07f2b548cd42451c15e6bde2",
+    "content-hash": "4900b4674a5bb9db2ab31a2772589e16",
     "packages": [
         {
             "name": "frameworks/jquery",
@@ -160,6 +160,117 @@
                 "source": "https://github.com/phpMv/ubiquity/tree/master"
             },
             "time": "2021-02-20T18:22:50+00:00"
+        },
+        {
+            "name": "phpmv/ubiquity-dev",
+            "version": "0.1.10",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpMv/ubiquity-dev.git",
+                "reference": "7b799d0fceb21254d3c6d0a818d889a25690af99"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpMv/ubiquity-dev/zipball/7b799d0fceb21254d3c6d0a818d889a25690af99",
+                "reference": "7b799d0fceb21254d3c6d0a818d889a25690af99",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "type": "extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ubiquity\\": "src/Ubiquity/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-Christophe HERON",
+                    "email": "myaddressmail@gmail.com",
+                    "role": "Lead developer"
+                }
+            ],
+            "description": "dev classes for Ubiquity framework",
+            "keywords": [
+                "framework",
+                "mailer",
+                "mvc",
+                "php",
+                "php-framework",
+                "tools"
+            ],
+            "support": {
+                "issues": "https://github.com/phpMv/ubiquity-dev/issues",
+                "source": "https://github.com/phpMv/ubiquity-dev/tree/0.1.10"
+            },
+            "time": "2021-02-07T23:57:15+00:00"
+        },
+        {
+            "name": "phpmv/ubiquity-webtools",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpMv/ubiquity-webtools.git",
+                "reference": "d8123bbab8331c476d325cf8b2ab934180153a9e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpMv/ubiquity-webtools/zipball/d8123bbab8331c476d325cf8b2ab934180153a9e",
+                "reference": "d8123bbab8331c476d325cf8b2ab934180153a9e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4",
+                "phpmv/php-mv-ui": ">2.2.19",
+                "phpmv/ubiquity-dev": "^0.1"
+            },
+            "default-branch": true,
+            "type": "extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ubiquity\\": "src/Ubiquity/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-Christophe HERON",
+                    "email": "myaddressmail@gmail.com",
+                    "role": "Lead developer"
+                }
+            ],
+            "description": "Webtools for Ubiquity framework",
+            "keywords": [
+                "framework",
+                "mvc",
+                "orm",
+                "php",
+                "php-framework",
+                "tools"
+            ],
+            "support": {
+                "issues": "https://github.com/phpMv/ubiquity-webtools/issues",
+                "source": "https://github.com/phpMv/ubiquity-webtools/tree/master"
+            },
+            "time": "2021-02-23T14:09:47+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -597,116 +708,6 @@
             "time": "2021-01-10T10:45:00+00:00"
         },
         {
-            "name": "phpmv/ubiquity-dev",
-            "version": "0.1.10",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpMv/ubiquity-dev.git",
-                "reference": "7b799d0fceb21254d3c6d0a818d889a25690af99"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity-dev/zipball/7b799d0fceb21254d3c6d0a818d889a25690af99",
-                "reference": "7b799d0fceb21254d3c6d0a818d889a25690af99",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4"
-            },
-            "type": "extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Ubiquity\\": "src/Ubiquity/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Jean-Christophe HERON",
-                    "email": "myaddressmail@gmail.com",
-                    "role": "Lead developer"
-                }
-            ],
-            "description": "dev classes for Ubiquity framework",
-            "keywords": [
-                "framework",
-                "mailer",
-                "mvc",
-                "php",
-                "php-framework",
-                "tools"
-            ],
-            "support": {
-                "issues": "https://github.com/phpMv/ubiquity-dev/issues",
-                "source": "https://github.com/phpMv/ubiquity-dev/tree/0.1.10"
-            },
-            "time": "2021-02-07T23:57:15+00:00"
-        },
-        {
-            "name": "phpmv/ubiquity-webtools",
-            "version": "2.4.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/phpMv/ubiquity-webtools.git",
-                "reference": "7ebf1f0d3d38cf875b3b6d74ce322e81bb970aef"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity-webtools/zipball/7ebf1f0d3d38cf875b3b6d74ce322e81bb970aef",
-                "reference": "7ebf1f0d3d38cf875b3b6d74ce322e81bb970aef",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.4",
-                "phpmv/php-mv-ui": ">2.2.19",
-                "phpmv/ubiquity-dev": "^0.1"
-            },
-            "type": "extension",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.4.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Ubiquity\\": "src/Ubiquity/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Jean-Christophe HERON",
-                    "email": "myaddressmail@gmail.com",
-                    "role": "Lead developer"
-                }
-            ],
-            "description": "Webtools for Ubiquity framework",
-            "keywords": [
-                "framework",
-                "mvc",
-                "orm",
-                "php",
-                "php-framework",
-                "tools"
-            ],
-            "support": {
-                "issues": "https://github.com/phpMv/ubiquity-webtools/issues",
-                "source": "https://github.com/phpMv/ubiquity-webtools/tree/2.4.4"
-            },
-            "time": "2021-02-07T01:17:08+00:00"
-        },
-        {
             "name": "psr/log",
             "version": "1.1.3",
             "source": {
@@ -761,6 +762,7 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "phpmv/ubiquity": 20,
+        "phpmv/ubiquity-webtools": 20,
         "phpmv/ubiquity-attributes": 20
     },
     "prefer-stable": false,

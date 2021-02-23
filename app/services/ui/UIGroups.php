@@ -1,6 +1,8 @@
 <?php
 namespace services\ui;
 
+ use models\Group;
+ use models\User;
  use Ubiquity\controllers\Controller;
  use Ubiquity\controllers\Router;
  use Ubiquity\utils\http\URequest;
@@ -18,7 +20,8 @@ class UIGroups extends \Ajax\php\ubiquity\UIService{
     }
 
     public function listGroups(array $groups){
-        $dt =$this->semantic->dataTable('dt-groups', Groups::class, $groups);
+        $dt =$this->semantic->dataTable('dt-groups', Group::class, $groups);
+        $dt->setFields(['name']);
 
     }
 
@@ -30,7 +33,18 @@ class UIGroups extends \Ajax\php\ubiquity\UIService{
         $frm->fieldAsLabeledInput('name', ['rules'=>'empty']);
         $frm->fieldAsLabeledInput('domain', ['rules'=>['empty','email']]);
         $frm->setValidationParams(["on"=>"blur", "inline"=>true]);
-        $frm->fieldAsSubmit('bt-submit','positive', Router::path('addOrga'),"#reponse");
+        $frm->fieldAsSubmit('submit','positive', Router::path('addOrga'),"#reponse");
+    }
+
+    public function userForm(\models\User $user)
+    {
+        $frm=$this->semantic->dataForm('frmUser', $user);
+        $frm->setFields(['email']);
+//        $frm->fieldAsHidden('id');
+//        $frm->fieldAsLabeledInput('name', ['rules'=>'empty']);
+//        $frm->fieldAsLabeledInput('domain', ['rules'=>['empty','email']]);
+//        $frm->setValidationParams(["on"=>"blur", "inline"=>true]);
+//        $frm->fieldAsSubmit('submit','positive', Router::path('addOrga'),"#reponse");
     }
 
 
