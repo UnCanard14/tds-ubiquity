@@ -1,26 +1,37 @@
 <!--View associated to index action of MainController controller -->
 <a href="{{ path('main.testAjax') }}" class="ui button" data-target="#reponse">Test Ajax load User</a>
-
 <a href="{{ path('groups.list') }}" class="ui button" data-target="#reponse">Liste des Organisation</a>
-
 <a href="{{ path('newOrga') }}" class="ui button" data-target="#reponse">Nouvelle Organisations</a>
-
-
 <div id="reponse" class="ui segment">
 
 </div>
 
-
-<a href="{{ path('newUser') }}" class="ui button" data-target="#reponse2">Nouvelle Utilisateur</a>
-<div id="reponse2" class="ui segment">
-
+<div class="ui attached segment">
+    Utilisateurs
 </div>
 
-{#<a href="{{ path('new.user') }}" class="ui basic olive button" data-target="#new-user">#}
-{#    <i class="plus icon"></i> Ajouter un utilisateur...#}
-{#</a>#}
+<div class="ui attached blue segment">
+    <div class="ui divided list">
+        <div class="item">
+            <a href="{{ path('new.user') }}" class="ui basic olive button" data-target="#new-user">
+                <i class="plus icon"></i> Ajouter un utilisateur...
+            </a>
+            <div id="new-user" style="margin-top: 3px"></div>
+        </div>
 
-{#<div id="new-user" style="margin-top: 3px">#}
+        <div class="item">
+            <a href="{{ path('new.users') }}" class="ui basic olive button" data-target="#new-user">
+                <i class="plus icon"></i> Ajouter des utilisateurs...
+            </a>
+            <div id="new-users" style="margin-top: 3px"></div>
+        </div>
 
-{#</div>#}
+        <div class="item">
+            <a href="{{ path('users') }}" class="ui basic olive button" data-target="#new-user">
+                <i class="plus icon"></i> Gérer les utilisateurs...
+            </a>
+        </div>
+    </div>
+</div>
+
 {{ script_foot | raw }}

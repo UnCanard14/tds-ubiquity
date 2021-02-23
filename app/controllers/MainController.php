@@ -7,10 +7,12 @@ namespace controllers;
  use services\ui\UIGroups;
  use Ubiquity\attributes\items\di\Autowired;
  use Ubiquity\attributes\items\router\Get;
+ use Ubiquity\attributes\items\router\Post;
  use Ubiquity\attributes\items\router\Route;
  use Ubiquity\controllers\auth\AuthController;
  use Ubiquity\controllers\auth\WithAuthTrait;
  use Ubiquity\orm\DAO;
+ use Ubiquity\utils\http\URequest;
  use Ubiquity\utils\http\USession;
 
  /**
@@ -80,10 +82,34 @@ class MainController extends ControllerBase{
 
     }
 
-    #[Get('newUser', name:'newUser')]
-    public function userForm(){
-        $this->uiService->userForm(new User());
-        $this->jquery->renderDefaultView();
-    }
+     #[Get('new/user', name: 'new.user')]
+     public function newUser(){
+         $this->uiService->newUser('frm-user');
+         $this->jquery->renderView('main/vForm.html',['formName'=>'frm-user']);
+     }
+
+     #[Post('new/user', name: 'new.userPost')]
+     public function newUserPost(){
+         $idOrga=USession::get('idOrga');
+         $orga=DAO::getById(Organization::class,$idOrga,false);
+         $user=new User();
+         URequest::setValuesToObject($user);
+         $user->setEmail(\strtolower($user->getFirstname().'.'.$user->getLastname().'@'.$orga->getDomain()));
+         $user->setOrganization($orga);
+         if(DAO::insert($user)){
+             $count=DAO::count(User::class,'idOrganization= ?',[$idOrga]);
+             $this->jquery->execAtLast('$("#users-count").html("'.$count.'")');
+             $this->showMessage("Ajout d'utilisateur","L'utilisateur $user a été ajouté à l'organisation.",'success','check square outline');
+         }else{
+             $this->showMessage("Ajout d'utilisateur","Aucun utilisateur n'a été ajouté",'error','warning circle');
+         }
+     }
+
+     public function showMessage(string $header,string $message,string $type = 'info',string $icon = 'info cirlce',array $buttons = []){
+         $this->loadView('MainController/showMessage.html',
+             compact('header', 'message','type', 'icon', 'buttons'));
+     }
+
+
 
 }
