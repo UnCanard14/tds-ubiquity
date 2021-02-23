@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c519989e699c61799deda89b9f71023f",
+    "content-hash": "9e2c033c07f2b548cd42451c15e6bde2",
     "packages": [
         {
             "name": "frameworks/jquery",
@@ -108,12 +108,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/ubiquity.git",
-                "reference": "0ba66b5ced3f1c466679996af5f4681aa2d8d1f5"
+                "reference": "1c587f43416cc8c336be285e2a943affadc9aa64"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity/zipball/0ba66b5ced3f1c466679996af5f4681aa2d8d1f5",
-                "reference": "0ba66b5ced3f1c466679996af5f4681aa2d8d1f5",
+                "url": "https://api.github.com/repos/phpMv/ubiquity/zipball/1c587f43416cc8c336be285e2a943affadc9aa64",
+                "reference": "1c587f43416cc8c336be285e2a943affadc9aa64",
                 "shasum": ""
             },
             "require": {
@@ -159,11 +159,11 @@
                 "issues": "https://github.com/phpMv/ubiquity/issues",
                 "source": "https://github.com/phpMv/ubiquity/tree/master"
             },
-            "time": "2021-02-14T22:56:12+00:00"
+            "time": "2021-02-20T18:22:50+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -222,7 +222,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.1"
             },
             "funding": [
                 {
@@ -242,16 +242,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "f377a3dd1fde44d37b9831d68dc8dea3ffd28e13"
+                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/f377a3dd1fde44d37b9831d68dc8dea3ffd28e13",
-                "reference": "f377a3dd1fde44d37b9831d68dc8dea3ffd28e13",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/5232de97ee3b75b0360528dae24e73db49566ab1",
+                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1",
                 "shasum": ""
             },
             "require": {
@@ -302,7 +302,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.1"
             },
             "funding": [
                 {
@@ -318,7 +318,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2021-01-22T09:19:47+00:00"
         },
         {
             "name": "twig/twig",
@@ -400,16 +400,16 @@
     "packages-dev": [
         {
             "name": "czproject/git-php",
-            "version": "v3.18.1",
+            "version": "v3.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/czproject/git-php.git",
-                "reference": "db664a8d5a1fbfd33e1cdd6ae65bc411bd18dc73"
+                "reference": "cb3bfc6f1e487e572870afae5d52ef3c7d250d8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/czproject/git-php/zipball/db664a8d5a1fbfd33e1cdd6ae65bc411bd18dc73",
-                "reference": "db664a8d5a1fbfd33e1cdd6ae65bc411bd18dc73",
+                "url": "https://api.github.com/repos/czproject/git-php/zipball/cb3bfc6f1e487e572870afae5d52ef3c7d250d8a",
+                "reference": "cb3bfc6f1e487e572870afae5d52ef3c7d250d8a",
                 "shasum": ""
             },
             "require": {
@@ -440,9 +440,9 @@
             ],
             "support": {
                 "issues": "https://github.com/czproject/git-php/issues",
-                "source": "https://github.com/czproject/git-php/tree/v3.18.1"
+                "source": "https://github.com/czproject/git-php/tree/v3.18.2"
             },
-            "time": "2020-07-03T08:02:12+00:00"
+            "time": "2021-02-15T11:41:33+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -766,7 +766,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4"
+        "php": ">=8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

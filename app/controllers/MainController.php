@@ -1,10 +1,12 @@
 <?php
 namespace controllers;
  use models\Group;
+ use models\Organization;
  use models\User;
  use services\dao\OrgaRepository;
  use services\ui\UIGroups;
  use Ubiquity\attributes\items\di\Autowired;
+ use Ubiquity\attributes\items\router\Get;
  use Ubiquity\attributes\items\router\Route;
  use Ubiquity\controllers\auth\AuthController;
  use Ubiquity\controllers\auth\WithAuthTrait;
@@ -24,7 +26,7 @@ class MainController extends ControllerBase{
     public function initialize()
     {
         parent::initialize();
-        //$this->uiService
+        $this->uiService = new UIGroups($this);
     }
 
     /**
@@ -60,10 +62,22 @@ class MainController extends ControllerBase{
     }
 
     #[Route('groups/list', name:'groups.list')]
-public function listGroups(){
+    public function listGroups(){
         $idOrga = USession::get('odOrga');
         $groups=DAO::getAll(Group::class,'idOrganization= ?', false, [$idOrga]);
         $this->uiService->listGroups($groups);
         $this->jquery->renderView();
     }
+
+    #[Get('newOrga', name:'newOrga')]
+    public function orgaForm(){
+        $this->uiService->orgaForm(new Organization());
+        $this->jquery->renderDefaultView();
+    }
+
+    #[Post('addOrga', name:'addOrga')]
+    public function addOrga(){
+
+    }
+
 }
