@@ -38,7 +38,7 @@ class MainController extends ControllerBase{
     #[Route('_default', name: 'home')]
 	public function index(){
         $this->uiService=new UIGroups($this);
-        $this->jquery->getHref('a[data-ajax]', parameters: ['historize'=>false, 'hasLoader'=>'internal', 'listenOn']);
+        $this->jquery->getHref('a[data-target]', parameters: ['historize'=>false, 'hasLoader'=>'internal', 'listenOn']);
 		$this->jquery->renderView("MainController/index.html");
 	}
 
@@ -49,7 +49,7 @@ class MainController extends ControllerBase{
 
     #[Route(path: "test/ajax", name: "main.testAjax")]
     public function testAjax(){
-        $user = DAO::getById(User::class,[1], false);
+        $user = DAO::getById(User::class,[2], false);
         $this->loadView('MainController/testAjax.html',['user'=>$user]);
     }
 
