@@ -2,6 +2,7 @@
 namespace services\ui;
 
  use Ajax\semantic\html\collections\form\HtmlForm;
+ use Ajax\semantic\html\collections\form\HtmlFormTextarea;
  use Ajax\semantic\widgets\dataform\DataForm;
  use models\Group;
  use models\User;
@@ -52,8 +53,14 @@ class UIGroups extends \Ajax\php\ubiquity\UIService{
          $frm->setCaptions(['Prénom','Nom']);
          $frm->fieldAsLabeledInput('firstname',['rules'=>'empty']);
          $frm->fieldAsLabeledInput('lastname',['rules'=>'empty']);
-         $this->addFormBehavior($formName,$frm,'#new-user','new.userPost');
+         $this->addFormBehavior($formName,$frm,'new-user','new.userPost');
      }
+
+    public function newUsers($formName){
+        $frm=$this->semantic->dataForm($formName,new User());
+        $frm->addItem(new HtmlFormTextarea("Entrez chaque utilisateur sur une ligne \n John DOE","Text"));
+        $this->addFormBehavior($formName,$frm,'new-users','new.usersPost');
+    }
 
 
 

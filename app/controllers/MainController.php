@@ -100,6 +100,7 @@ class MainController extends ControllerBase{
              $count=DAO::count(User::class,'idOrganization= ?',[$idOrga]);
              $this->jquery->execAtLast('$("#users-count").html("'.$count.'")');
              $this->showMessage("Ajout d'utilisateur","L'utilisateur $user a été ajouté à l'organisation.",'success','check square outline');
+             echo '';
          }else{
              $this->showMessage("Ajout d'utilisateur","Aucun utilisateur n'a été ajouté",'error','warning circle');
          }
@@ -109,6 +110,30 @@ class MainController extends ControllerBase{
          $this->loadView('MainController/showMessage.html',
              compact('header', 'message','type', 'icon', 'buttons'));
      }
+
+    #[Get('new/users', name: 'new.users')]
+    public function newUsers(){
+        $this->uiService->newUsers('frm-users');
+        $this->jquery->renderView('main/vForm.html',['formName'=>'frm-users']);
+    }
+
+    #[Post('new/users', name: 'new.usersPost')]
+    public function newUsersPost()
+    {
+        $idOrga = USession::get('idOrga');
+        $orga = DAO::getById(Organization::class, $idOrga, false);
+        $user = new User();
+        URequest::setValuesToObject($user);
+        $user->setEmail(\strtolower($user->getFirstname() . '.' . $user->getLastname() . '@' . $orga->getDomain()));
+        $user->setOrganization($orga);
+        if (DAO::insert($user)) {
+            $count = DAO::count(User::class, 'idOrganization= ?', [$idOrga]);
+            $this->jquery->execAtLast('$("#users-count").html("' . $count . '")');
+            $this->showMessage("Ajout d'utilisateur", "L'utilisateur $user a été ajouté à l'organisation.", 'success', 'check square outline');
+        } else {
+            $this->showMessage("Ajout d'utilisateur", "Aucun utilisateur n'a été ajouté", 'error', 'warning circle');
+        }
+    }
 
 
 
