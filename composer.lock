@@ -108,12 +108,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/ubiquity.git",
-                "reference": "1c587f43416cc8c336be285e2a943affadc9aa64"
+                "reference": "7623e7cba058db50edc1140c6383482e5d0f7f45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity/zipball/1c587f43416cc8c336be285e2a943affadc9aa64",
-                "reference": "1c587f43416cc8c336be285e2a943affadc9aa64",
+                "url": "https://api.github.com/repos/phpMv/ubiquity/zipball/7623e7cba058db50edc1140c6383482e5d0f7f45",
+                "reference": "7623e7cba058db50edc1140c6383482e5d0f7f45",
                 "shasum": ""
             },
             "require": {
@@ -159,20 +159,20 @@
                 "issues": "https://github.com/phpMv/ubiquity/issues",
                 "source": "https://github.com/phpMv/ubiquity/tree/master"
             },
-            "time": "2021-02-20T18:22:50+00:00"
+            "time": "2021-03-03T12:53:51+00:00"
         },
         {
             "name": "phpmv/ubiquity-dev",
-            "version": "0.1.10",
+            "version": "0.1.12",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/ubiquity-dev.git",
-                "reference": "7b799d0fceb21254d3c6d0a818d889a25690af99"
+                "reference": "bff5b7b6d12449fd386a26a7f237e16c97be922e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity-dev/zipball/7b799d0fceb21254d3c6d0a818d889a25690af99",
-                "reference": "7b799d0fceb21254d3c6d0a818d889a25690af99",
+                "url": "https://api.github.com/repos/phpMv/ubiquity-dev/zipball/bff5b7b6d12449fd386a26a7f237e16c97be922e",
+                "reference": "bff5b7b6d12449fd386a26a7f237e16c97be922e",
                 "shasum": ""
             },
             "require": {
@@ -211,9 +211,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpMv/ubiquity-dev/issues",
-                "source": "https://github.com/phpMv/ubiquity-dev/tree/0.1.10"
+                "source": "https://github.com/phpMv/ubiquity-dev/tree/0.1.12"
             },
-            "time": "2021-02-07T23:57:15+00:00"
+            "time": "2021-03-02T15:16:54+00:00"
         },
         {
             "name": "phpmv/ubiquity-webtools",
@@ -221,12 +221,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/ubiquity-webtools.git",
-                "reference": "d8123bbab8331c476d325cf8b2ab934180153a9e"
+                "reference": "36566f5ee4deb976e8ab8b002c6be6860c36a29b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity-webtools/zipball/d8123bbab8331c476d325cf8b2ab934180153a9e",
-                "reference": "d8123bbab8331c476d325cf8b2ab934180153a9e",
+                "url": "https://api.github.com/repos/phpMv/ubiquity-webtools/zipball/36566f5ee4deb976e8ab8b002c6be6860c36a29b",
+                "reference": "36566f5ee4deb976e8ab8b002c6be6860c36a29b",
                 "shasum": ""
             },
             "require": {
@@ -270,7 +270,7 @@
                 "issues": "https://github.com/phpMv/ubiquity-webtools/issues",
                 "source": "https://github.com/phpMv/ubiquity-webtools/tree/master"
             },
-            "time": "2021-02-23T14:09:47+00:00"
+            "time": "2021-03-02T14:55:55+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -657,12 +657,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/ubiquity-attributes.git",
-                "reference": "f7a1c63fd10896ccad768710762975e7b5c166e9"
+                "reference": "8d3be65009d0bcc13916662a499327fa5b74b680"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity-attributes/zipball/f7a1c63fd10896ccad768710762975e7b5c166e9",
-                "reference": "f7a1c63fd10896ccad768710762975e7b5c166e9",
+                "url": "https://api.github.com/repos/phpMv/ubiquity-attributes/zipball/8d3be65009d0bcc13916662a499327fa5b74b680",
+                "reference": "8d3be65009d0bcc13916662a499327fa5b74b680",
                 "shasum": ""
             },
             "require": {
@@ -703,9 +703,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpMv/ubiquity-attributes/issues",
-                "source": "https://github.com/phpMv/ubiquity-attributes/tree/0.0.5"
+                "source": "https://github.com/phpMv/ubiquity-attributes/tree/0.0.6"
             },
-            "time": "2021-01-10T10:45:00+00:00"
+            "time": "2021-02-28T00:50:55+00:00"
         },
         {
             "name": "psr/log",

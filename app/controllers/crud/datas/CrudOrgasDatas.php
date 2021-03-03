@@ -12,6 +12,8 @@ class CrudOrgasDatas extends CRUDDatas{
     {
         return ['name', 'domain'];
     }
+
+
 }
 
 
