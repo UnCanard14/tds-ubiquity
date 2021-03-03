@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 use models\User;
+use Ubiquity\attributes\items\router\Route;
 use Ubiquity\controllers\Router;
 use Ubiquity\orm\DAO;
 use Ubiquity\utils\flash\FlashMessage;

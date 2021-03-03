@@ -90,6 +90,7 @@ class MainController extends ControllerBase{
 
      #[Post('new/user', name: 'new.userPost')]
      public function newUserPost(){
+
          $idOrga=USession::get('idOrga');
          $orga=DAO::getById(Organization::class,$idOrga,false);
          $user=new User();
@@ -121,17 +122,28 @@ class MainController extends ControllerBase{
     public function newUsersPost()
     {
         $idOrga = USession::get('idOrga');
-        $orga = DAO::getById(Organization::class, $idOrga, false);
-        $user = new User();
-        URequest::setValuesToObject($user);
-        $user->setEmail(\strtolower($user->getFirstname() . '.' . $user->getLastname() . '@' . $orga->getDomain()));
-        $user->setOrganization($orga);
-        if (DAO::insert($user)) {
-            $count = DAO::count(User::class, 'idOrganization= ?', [$idOrga]);
-            $this->jquery->execAtLast('$("#users-count").html("' . $count . '")');
-            $this->showMessage("Ajout d'utilisateur", "L'utilisateur $user a été ajouté à l'organisation.", 'success', 'check square outline');
-        } else {
-            $this->showMessage("Ajout d'utilisateur", "Aucun utilisateur n'a été ajouté", 'error', 'warning circle');
+        $orga=DAO::getById(Organization::class,$idOrga,false);
+        $users=URequest::post('users');
+        $usersTab = explode("\n", $users);
+        foreach ($usersTab as $user){
+            $newUser = new User();
+            $user = explode(" ", $user);
+            $name = $user[0];
+            $firstName = substr($user[1], 0, -1);
+
+            $newUser->setLastname($name);
+            $newUser->setFirstname($firstName);
+            $newUser->setEmail(\strtolower($newUser->getFirstname().'.'.$newUser->getLastname().'@'.$orga->getDomain()));
+            $newUser->setOrganization($orga);
+            if(DAO::insert($newUser)){
+                $count=DAO::count(User::class,'idOrganization= ?',[$idOrga]);
+                $this->jquery->execAtLast('$("#users-count").html("'.$count.'")');
+                $this->showMessage("Ajout d'utilisateur","L'utilisateur $newUser a été ajouté à l'organisation.",'success','check square outline');
+                echo '';
+            }else{
+                $this->showMessage("Ajout d'utilisateur","Aucun utilisateur n'a été ajouté",'error','warning circle');
+            }
+
         }
     }
 
