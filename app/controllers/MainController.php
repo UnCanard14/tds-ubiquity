@@ -44,6 +44,7 @@ class MainController extends ControllerBase{
         $this->uiService=new UIGroups($this);
         $this->jquery->getHref('a[data-target]', parameters: ['historize'=>false, 'hasLoader'=>'internal', 'listenOn']);
 		$this->jquery->renderView("MainController/index.html");
+        $this->jquery->renderView("CrudUser/index.html");
 	}
 
     protected function getAuthController(): AuthController
