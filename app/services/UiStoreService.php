@@ -6,7 +6,7 @@ use Ajax\php\ubiquity\UIService;
 use Ubiquity\controllers\Controller;
 use Ubiquity\utils\http\URequest;
 
-class UIGroups extends UIService {
+class UiStoreService extends UIService {
     public function __construct(Controller $controller) {
         parent::__construct($controller);
         if(!URequest::isAjax()) {
