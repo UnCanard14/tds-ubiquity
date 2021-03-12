@@ -38,6 +38,7 @@ class AuthController extends \Ubiquity\controllers\auth\AuthController{
                 $password=URequest::post($this->_getPasswordInputName());
                 $user = DAO::getOne(User::class, 'email= ?', false, [$email]);
                 if(isset($user) && $user->getPassword() == $password) {
+                    USession::set('idUser', $user->getId());
                     return $user;
                 }
             }

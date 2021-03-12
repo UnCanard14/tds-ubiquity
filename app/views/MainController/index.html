@@ -1,19 +1,24 @@
 <div class="ui grid ">
-    <div class="olive ten wide column">
+
+    <div class="olive ten wide column ui basic segment">
         <div class="ui top left attached label">Store</div>
-        <button class="ui button">Mes commandes</button>
-        <button class="ui button">Parcourir le store</button>
+        <button class="ui button" onclick="location.href='{{ path('order') }}'">Mes commandes ({{ numOrders }})</button>
+        <button class="ui button" onclick="location.href='{{ path('store') }}'">Parcourir le store</button>
     </div>
-    <div class="black six wide column">
+    <div class="black six wide column ui basic segment">
         <div class="ui top left attached label">Paniers</div>
-        <button class="ui button">Nouveau</button>
-        <button class="ui button">Mes paniers</button>
+        <button class="ui button" onclick="location.href='{{ path('newBasket') }}'">Nouveau</button>
+        <button class="ui button" onclick="location.href='{{ path('basket') }}'">Mes paniers ({{ numBaskets }})</button>
     </div>
-    <div class="olive sixteen wide column">
+    <div class="olive sixteen wide column ui basic segment">
         <div class="ui top left attached label">Promotion en cours</div>
-        <p>De belles promos</p>
+        <ul>
+            {% for article in articlesPromo %}
+                <li>{{ article.name }}</li>
+            {% endfor %}
+        </ul>
     </div>
-    <div class="black sixteen wide column">
+    <div class="olive sixteen wide column ui basic segment">
         <div class="ui top left attached label">Consultés récemment</div>
         <p>Un Article</p>
     </div>

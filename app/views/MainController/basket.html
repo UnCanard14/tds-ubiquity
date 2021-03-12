@@ -1,0 +1,7 @@
+<!--View associated to basket action of MainController controller -->
+<h1>Mes panniers</h1>
+<ul>
+    {% for basket in baskets %}
+        <li>{{ basket.name }}</li>
+    {% endfor %}
+</ul>

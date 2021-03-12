@@ -1,0 +1,7 @@
+<!--View associated to orderPage action of MainController controller -->
+<h1>Mes commandes</h1>
+<ul>
+    {% for order in orders %}
+        <li>{{ order.dateCreation }}</li>
+    {% endfor %}
+</ul>

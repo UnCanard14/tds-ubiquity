@@ -1,0 +1,7 @@
+<!--View associated to storePage action of MainController controller -->
+<h1>Produits</h1>
+<ul>
+    {% for article in store %}
+        <li>{{ article.name }}</li>
+    {% endfor %}
+</ul>
