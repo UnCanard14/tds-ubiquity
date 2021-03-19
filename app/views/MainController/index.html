@@ -1,25 +1,36 @@
 <div class="ui grid ">
+    <div class="ui ten wide column">
+        <div class="ui top attached header">Store</div>
+        <div class="ui attached segment">
+            <button class="ui button" onclick="location.href='{{ path('order') }}'">Mes commandes ({{ numOrders }})</button>
+            <button class="ui button" onclick="location.href='{{ path('store') }}'">Parcourir le store</button>
+        </div>
+    </div>
 
-    <div class="olive ten wide column ui basic segment">
-        <div class="ui top left attached label">Store</div>
-        <button class="ui button" onclick="location.href='{{ path('order') }}'">Mes commandes ({{ numOrders }})</button>
-        <button class="ui button" onclick="location.href='{{ path('store') }}'">Parcourir le store</button>
+    <div class="ui six wide column">
+        <div class="ui top attached header">Paniers</div>
+        <div class="ui attached segment">
+            <button class="ui button" onclick="location.href='{{ path('newBasket') }}'">Nouveau</button>
+            <button class="ui button" onclick="location.href='{{ path('basket') }}'">Mes paniers ({{ numBaskets }})</button>
+        </div>
     </div>
-    <div class="black six wide column ui basic segment">
-        <div class="ui top left attached label">Paniers</div>
-        <button class="ui button" onclick="location.href='{{ path('newBasket') }}'">Nouveau</button>
-        <button class="ui button" onclick="location.href='{{ path('basket') }}'">Mes paniers ({{ numBaskets }})</button>
+
+    <div class="ui sixteen wide column">
+        <div class="ui top attached header">Promotion en cours</div>
+        <div class="ui attached segment">
+            <ul>
+                {% for article in articlesPromo %}
+                    <li>{{ article.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-    <div class="olive sixteen wide column ui basic segment">
-        <div class="ui top left attached label">Promotion en cours</div>
-        <ul>
-            {% for article in articlesPromo %}
-                <li>{{ article.name }}</li>
-            {% endfor %}
-        </ul>
+
+    <div class="ui sixteen wide column">
+        <div class="ui top attached header">Consultés récemment</div>
+        <div class="ui attached segment">
+            <p>Un Article</p>
+        </div>
     </div>
-    <div class="olive sixteen wide column ui basic segment">
-        <div class="ui top left attached label">Consultés récemment</div>
-        <p>Un Article</p>
-    </div>
+
 </div>

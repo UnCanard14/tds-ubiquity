@@ -4,6 +4,7 @@ namespace controllers;
  use models\Basket;
  use models\Order;
  use models\Product;
+ use models\Section;
  use services\dao\OrgaRepository;
  use Ubiquity\attributes\items\di\Autowired;
  use Ubiquity\attributes\items\router\Route;
@@ -52,31 +53,21 @@ class MainController extends ControllerBase{
         return $this->_auth??= new \controllers\AuthController($this);
     }
 
-    public function isValid($action) {
-        if($action==='myLists' || $action==='deleteList'){
-            return $this->getAuthController()->_isValidUser($action);
-        }
-        return parent::isValid($action);
-    }
-
     #[Route ('store', name:'store')]
     public function storePage(){
        $store = DAO::getAll(Product::class, false, false);
-       $this->loadDefaultView(['store'=>$store]);
+       $sections = DAO::getAll(Section::class, false, false);
+       $this->loadDefaultView(['store'=>$store, 'sections'=>$sections]);
     }
 
     #[Route ('order', name:'order')]
     public function orderPage(){
         $orders = DAO::getAll(Order::class, 'idUser= ?', false, [USession::get("idUser")]);
         $this->loadDefaultView(['orders'=>$orders]);
-//        echo '<pre>';
-//        print_r($orders);
-//        echo '</pre>';
     }
 
     #[Route ('newBasket', name:'newBasket')]
     public function newBasket(){
-       // $orders = DAO::getAll(Order::class, 'idUser= ?', false, [USession::get("idUser")]);
         $this->loadDefaultView();
 //        echo '<pre>';
 //        print_r($orders);
@@ -89,7 +80,10 @@ class MainController extends ControllerBase{
         $this->loadDefaultView(['baskets'=>$baskets]);
     }
 
-
-
+	#[Route(path: "section/{id}",name: "section")]
+	public function section($id){
+        $articles = DAO::getAll(Product::class, 'idSection= ?', false, [$id]);
+		$this->loadDefaultView(['idSection'=>$id, 'articles'=>$articles]);
+	}
 
 }

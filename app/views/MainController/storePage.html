@@ -1,7 +1,23 @@
-<!--View associated to storePage action of MainController controller -->
-<h1>Produits</h1>
-<ul>
-    {% for article in store %}
-        <li>{{ article.name }}</li>
-    {% endfor %}
-</ul>
+<div class="ui grid ">
+        <div class="ui five wide column">
+                <div class="ui top attached header">Sections</div>
+                <div class="ui attached segment">
+                        <ul>
+                                {% for section in sections %}
+                                        <li><a href="{{ path('section') }}{{ section.id }}">{{ section.name }}</a></li>
+                                {% endfor %}
+                        </ul>
+                </div>
+        </div>
+
+        <div class="ui eleven wide column">
+                <div class="ui top attached header">Articles</div>
+                <div class="ui attached segment">
+                        <ul>
+                                {% for article in store %}
+                                        <li>{{ article.name }}</li>
+                                {% endfor %}
+                        </ul>
+                </div>
+        </div>
+</div>
