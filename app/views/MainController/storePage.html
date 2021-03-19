@@ -4,15 +4,15 @@
                 <div class="ui attached segment">
                         <ul>
                                 {% for section in sections %}
-                                        <li><a href="{{ path('section') }}{{ section.id }}">{{ section.name }}</a></li>
+                                        <li><a data-target=".article" href="{{ path('section',[section.id]) }}">{{ section.name }}</a></li>
                                 {% endfor %}
                         </ul>
                 </div>
         </div>
 
-        <div class="ui eleven wide column">
+        <div class="ui eleven wide column article">
                 <div class="ui top attached header">Articles</div>
-                <div class="ui attached segment">
+                <div class="ui attached segment article">
                         <ul>
                                 {% for article in store %}
                                         <li>{{ article.name }}</li>

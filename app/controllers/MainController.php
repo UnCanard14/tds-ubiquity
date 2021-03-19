@@ -5,11 +5,14 @@ namespace controllers;
  use models\Order;
  use models\Product;
  use models\Section;
+ use models\User;
  use services\dao\OrgaRepository;
+ use services\ui\UiStoreService;
  use Ubiquity\attributes\items\di\Autowired;
  use Ubiquity\attributes\items\router\Route;
  use Ubiquity\controllers\auth\AuthController;
  use Ubiquity\controllers\auth\WithAuthTrait;
+ use Ubiquity\controllers\Router;
  use Ubiquity\orm\DAO;
  use Ubiquity\utils\http\USession;
 
@@ -19,6 +22,13 @@ namespace controllers;
 
 class MainController extends ControllerBase{
     use WithAuthTrait;
+
+    public function initialize()
+    {
+        parent::initialize();
+        $this->ui = new UiStoreService($this);
+    }
+
 
     #[Autowired]
     private OrgaRepository $repo;
@@ -44,7 +54,8 @@ class MainController extends ControllerBase{
         $numOrders = count(DAO::getAll(Order::class, 'idUser= ?', false, [USession::get("idUser")]));
         $articlesPromo = DAO::getAll(Product::class, 'promotion< ?', false, [0]);
         $numBaskets = count(DAO::getAll(Basket::class, 'idUser= ?', false, [USession::get("idUser")]));
-		$this->loadDefaultView(['numOrders'=>$numOrders ,'articlesPromo'=>$articlesPromo, 'numBaskets'=>$numBaskets]);
+        //$this->jquery->get(Router::url("section", [1]), ".detail");
+		$this->jquery->renderDefaultView(['numOrders'=>$numOrders ,'articlesPromo'=>$articlesPromo, 'numBaskets'=>$numBaskets]);
 	}
 
     protected function getAuthController(): AuthController
@@ -83,7 +94,9 @@ class MainController extends ControllerBase{
 	#[Route(path: "section/{id}",name: "section")]
 	public function section($id){
         $articles = DAO::getAll(Product::class, 'idSection= ?', false, [$id]);
-		$this->loadDefaultView(['idSection'=>$id, 'articles'=>$articles]);
+        $section = DAO::getById(Section::class, $id, false);
+		$this->loadDefaultView(['idSection'=>$id, 'articles'=>$articles, 'section'=>$section]);
 	}
+
 
 }

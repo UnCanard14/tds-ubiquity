@@ -1,6 +1,6 @@
 <?php
 
-namespace services;
+namespace services\ui;
 
 use Ajax\php\ubiquity\UIService;
 use Ubiquity\controllers\Controller;

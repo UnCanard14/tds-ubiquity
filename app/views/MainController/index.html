@@ -2,8 +2,8 @@
     <div class="ui ten wide column">
         <div class="ui top attached header">Store</div>
         <div class="ui attached segment">
-            <button class="ui button" onclick="location.href='{{ path('order') }}'">Mes commandes ({{ numOrders }})</button>
-            <button class="ui button" onclick="location.href='{{ path('store') }}'">Parcourir le store</button>
+            <a class="ui button" data-target=".ajaxReponse" href='{{ path('order') }}'>Mes commandes ({{ numOrders }})</a>
+            <a class="ui button" data-target=".ajaxReponse" href='{{ path('store') }}'>Parcourir le store</a>
         </div>
     </div>
 
@@ -34,3 +34,5 @@
     </div>
 
 </div>
+
+{{ script_foot | raw }}
