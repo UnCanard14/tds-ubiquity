@@ -99,4 +99,10 @@ class MainController extends ControllerBase{
 	}
 
 
+
+	#[Route(path: "productSheet/{idSection}/{idProduct}",name: "main.productSheet")]
+	public function productSheet($idSection,$idProduct){
+		
+	}
+
 }

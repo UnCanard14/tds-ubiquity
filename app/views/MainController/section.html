@@ -1,13 +1,30 @@
 <!--View associated to section action of MainController controller -->
 <div class="ui grid ">
-        <div class="ui five wide column">
-                <div class="ui top attached header">Produits  {{ section }}</div>
-                <div class="ui attached segment">
-                        <ul>
-                                {% for article in articles %}
-                                        <li>{{ article.name }}</li>
-                                {% endfor %}
-                        </ul>
+    <div class="ui wide column">
+        <div class="ui top attached header">Produits {{ section }}</div>
+        <div class="ui attached segment">
+
+            <div class="ui stackable four column grid">
+                {% for article in articles %}
+
+                <div class="ui column">
+                    <div class="ui top attached header">{{ article.name }}</div>
+                    <div class="ui attached segment olive">
+                        {{ article.price }}
+                        {{ article.comments }}
+                        <a class="ui button mini" href='{{ path('store') }}'>Voir plus</a>
+                        <a href='{{ path('store') }}'>
+                        <div class="ui vertical animated button mini" tabindex="0">
+                            <div class="hidden content">Shop</div>
+                            <div class="visible content">
+                                <i class="shop icon"></i>
+                            </div>
+                        </div>
+                        </a>
+                    </div>
                 </div>
+                {% endfor %}
+            </div>
         </div>
+    </div>
 </div>
