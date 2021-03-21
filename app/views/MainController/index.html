@@ -29,7 +29,11 @@
     <div class="ui sixteen wide column">
         <div class="ui top attached header">Consultés récemment</div>
         <div class="ui attached segment">
-            <p>Un Article</p>
+            <ul>
+                {% for article in recentlyViewedProducts %}
+                    <li>{{ article.name }}</li>
+                {% endfor %}
+            </ul>
         </div>
     </div>
 

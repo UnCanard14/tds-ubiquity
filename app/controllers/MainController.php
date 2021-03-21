@@ -2,6 +2,7 @@
 namespace controllers;
 
  use models\Basket;
+ use models\Basketdetail;
  use models\Order;
  use models\Product;
  use models\Section;
@@ -14,6 +15,7 @@ namespace controllers;
  use Ubiquity\controllers\auth\WithAuthTrait;
  use Ubiquity\controllers\Router;
  use Ubiquity\orm\DAO;
+ use Ubiquity\utils\http\UResponse;
  use Ubiquity\utils\http\USession;
 
  /**
@@ -51,11 +53,16 @@ class MainController extends ControllerBase{
 
     #[Route ('_default', name:'home')]
 	public function index(){
+        USession::set('recentlyViewedProducts',[]);
         $numOrders = count(DAO::getAll(Order::class, 'idUser= ?', false, [USession::get("idUser")]));
         $articlesPromo = DAO::getAll(Product::class, 'promotion< ?', false, [0]);
         $numBaskets = count(DAO::getAll(Basket::class, 'idUser= ?', false, [USession::get("idUser")]));
         //$this->jquery->get(Router::url("section", [1]), ".detail");
-		$this->jquery->renderDefaultView(['numOrders'=>$numOrders ,'articlesPromo'=>$articlesPromo, 'numBaskets'=>$numBaskets]);
+        $recentlyViewedProducts = USession::get('recentlyViewedProducts');
+                echo '<pre>';
+        print_r($recentlyViewedProducts);
+        echo '</pre>';
+		$this->jquery->renderDefaultView(['numOrders'=>$numOrders ,'articlesPromo'=>$articlesPromo, 'numBaskets'=>$numBaskets, 'recentlyViewedProducts'=>$recentlyViewedProducts]);
 	}
 
     protected function getAuthController(): AuthController
@@ -95,13 +102,37 @@ class MainController extends ControllerBase{
 	public function section($id){
         $articles = DAO::getAll(Product::class, 'idSection= ?', false, [$id]);
         $section = DAO::getById(Section::class, $id, false);
-		$this->loadDefaultView(['idSection'=>$id, 'articles'=>$articles, 'section'=>$section]);
+		$this->loadDefaultView(['articles'=>$articles, 'section'=>$section]);
+	}
+
+	#[Route(path: "productSheet/{idSection}/{idProduct}",name: "productSheet")]
+	public function productSheet($idSection,$idProduct){
+        $article = DAO::getById(Product::class, $idProduct, false);
+        $section = DAO::getById(Section::class, $idSection, false);
+        $assoProducts = $article->getAssociatedproducts();
+        $rvp = USession::get("recentlyViewedProducts");
+        array_push($rvp, $article);
+        USession::set("recentlyViewedProducts", $rvp);
+        $this->loadDefaultView(['article'=>$article, 'section'=>$section, 'assoProducts'=>$assoProducts]);
 	}
 
 
+	#[Route(path: "addArticleToDefaultBasket/{idProduct}",name: "addArticleToDefaultBasket")]
+	public function addArticleToDefaultBasket($idProduct){
+        $basket = DAO::getOne(Basket::class, 'idUser= ?', false, [USession::get("idUser")]);
+        $Basketdetails = new Basketdetail();
+        $Basketdetails->setBasket($basket);
+        $Basketdetails->setIdProduct($idProduct);
+        $Basketdetails->setQuantity(1);
+        if(DAO::save($Basketdetails)){
+            UResponse::header('location', '/');
+        }else{
+            echo $Basketdetails.'not added in database';
+        }
+	}
 
-	#[Route(path: "productSheet/{idSection}/{idProduct}",name: "main.productSheet")]
-	public function productSheet($idSection,$idProduct){
+	#[Route(path: "addArticleToSpecificBasket/{idBasket}/{idProduct}",name: "addArticleToSpecificBasket")]
+	public function addArticleToSpecificBasket($idBasket, $idProduct){
 		
 	}
 

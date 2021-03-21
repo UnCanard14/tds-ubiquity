@@ -12,8 +12,8 @@
                     <div class="ui attached segment olive">
                         {{ article.price }}
                         {{ article.comments }}
-                        <a class="ui button mini" href='{{ path('store') }}'>Voir plus</a>
-                        <a href='{{ path('store') }}'>
+                        <a data-target=".article" class="ui button mini" href='{{ path('productSheet', [section.id, article.id])}}'>Voir plus</a>
+                        <a href='{{ path('addArticleToDefaultBasket', [article.id]) }}'>
                         <div class="ui vertical animated button mini" tabindex="0">
                             <div class="hidden content">Shop</div>
                             <div class="visible content">
