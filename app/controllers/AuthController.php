@@ -1,5 +1,7 @@
 <?php
 namespace controllers;
+use models\Basket;
+use models\Basketdetail;
 use models\User;
 use Ubiquity\orm\DAO;
 use Ubiquity\utils\http\UResponse;
@@ -25,6 +27,7 @@ class AuthController extends \Ubiquity\controllers\auth\AuthController{
 		}else{
 			//TODO
 			//Forwarding to the default controller/action
+            USession::set('recentlyViewedProducts',[]);
             UResponse::header('location', '/');
 		}
 	}
@@ -39,6 +42,10 @@ class AuthController extends \Ubiquity\controllers\auth\AuthController{
                 $user = DAO::getOne(User::class, 'email= ?', false, [$email]);
                 if(isset($user) && $user->getPassword() == $password) {
                     USession::set('idUser', $user->getId());
+                    $basket = new Basket();
+                    $basket->setName("Default");
+                    $basket->setUser($user);
+                    USession::set('defaultBasket', $basket);
                     return $user;
                 }
             }

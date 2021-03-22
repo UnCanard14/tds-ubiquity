@@ -1,6 +1,7 @@
 <?php
 namespace controllers;
 
+ use classes\LocalBasket;
  use models\Basket;
  use models\Basketdetail;
  use models\Order;
@@ -53,15 +54,11 @@ class MainController extends ControllerBase{
 
     #[Route ('_default', name:'home')]
 	public function index(){
-        USession::set('recentlyViewedProducts',[]);
         $numOrders = count(DAO::getAll(Order::class, 'idUser= ?', false, [USession::get("idUser")]));
         $articlesPromo = DAO::getAll(Product::class, 'promotion< ?', false, [0]);
         $numBaskets = count(DAO::getAll(Basket::class, 'idUser= ?', false, [USession::get("idUser")]));
         //$this->jquery->get(Router::url("section", [1]), ".detail");
         $recentlyViewedProducts = USession::get('recentlyViewedProducts');
-                echo '<pre>';
-        print_r($recentlyViewedProducts);
-        echo '</pre>';
 		$this->jquery->renderDefaultView(['numOrders'=>$numOrders ,'articlesPromo'=>$articlesPromo, 'numBaskets'=>$numBaskets, 'recentlyViewedProducts'=>$recentlyViewedProducts]);
 	}
 
@@ -94,7 +91,8 @@ class MainController extends ControllerBase{
 
     #[Route ('Basket', name:'basket')]
     public function basket(){
-        $baskets = DAO::getAll(Basket::class, 'idUser= ?', false, [USession::get("idUser")]);
+       // $baskets = DAO::getAll(Basket::class, 'idUser= ?', false, [USession::get("idUser")]);
+        $baskets = USession::get('defaultBasket');
         $this->loadDefaultView(['baskets'=>$baskets]);
     }
 
@@ -111,7 +109,7 @@ class MainController extends ControllerBase{
         $section = DAO::getById(Section::class, $idSection, false);
         $assoProducts = $article->getAssociatedproducts();
         $rvp = USession::get("recentlyViewedProducts");
-        array_push($rvp, $article);
+        $rvp[] = $article;
         USession::set("recentlyViewedProducts", $rvp);
         $this->loadDefaultView(['article'=>$article, 'section'=>$section, 'assoProducts'=>$assoProducts]);
 	}
@@ -119,16 +117,30 @@ class MainController extends ControllerBase{
 
 	#[Route(path: "addArticleToDefaultBasket/{idProduct}",name: "addArticleToDefaultBasket")]
 	public function addArticleToDefaultBasket($idProduct){
-        $basket = DAO::getOne(Basket::class, 'idUser= ?', false, [USession::get("idUser")]);
-        $Basketdetails = new Basketdetail();
-        $Basketdetails->setBasket($basket);
-        $Basketdetails->setIdProduct($idProduct);
-        $Basketdetails->setQuantity(1);
-        if(DAO::save($Basketdetails)){
+//        $basket = USession::get('defaultBasket');
+//        $Basketdetails = new Basketdetail();
+//        $Basketdetails->setIdProduct($idProduct);
+//        $Basketdetails->setQuantity(1);
+//        $basket->setBasketdetails($Basketdetails);
+//        USession::set('defaultBasket',$basket);
+        $article = DAO::getById(Product::class, $idProduct, false);
+        $article2 = DAO::getById(Product::class, 5, false);
+
+        $localBasket = new LocalBasket("Default", USession::get("idUser"));
+
+        $localBasket->addProduct($article, 3);
+        $localBasket->addProduct($article, 5);
+        $localBasket->addProduct($article2, 5);
+        $localBasket->saveInDatabase();
+//        $localBasket->addProduct(5, 3);
+
+       // UResponse::header('location', '/');
+
+  /*      if(DAO::save($Basketdetails)){
             UResponse::header('location', '/');
         }else{
             echo $Basketdetails.'not added in database';
-        }
+        }*/
 	}
 
 	#[Route(path: "addArticleToSpecificBasket/{idBasket}/{idProduct}",name: "addArticleToSpecificBasket")]

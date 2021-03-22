@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a754a5fae99b2702b735ffcb75b19d76",
+    "content-hash": "17c72e86bed4293957d628e10b347869",
     "packages": [
         {
             "name": "frameworks/jquery",
@@ -38,16 +38,16 @@
         },
         {
             "name": "phpmv/php-mv-ui",
-            "version": "2.3.18",
+            "version": "2.3.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/phpMv-UI.git",
-                "reference": "590fc51a17573046314a3e14c73a1ab8ca70584b"
+                "reference": "d4bd11beeab50e45a591e613911ea317ae841db4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/phpMv-UI/zipball/590fc51a17573046314a3e14c73a1ab8ca70584b",
-                "reference": "590fc51a17573046314a3e14c73a1ab8ca70584b",
+                "url": "https://api.github.com/repos/phpMv/phpMv-UI/zipball/d4bd11beeab50e45a591e613911ea317ae841db4",
+                "reference": "d4bd11beeab50e45a591e613911ea317ae841db4",
                 "shasum": ""
             },
             "require": {
@@ -98,22 +98,22 @@
             ],
             "support": {
                 "issues": "https://github.com/phpMv/phpMv-UI/issues",
-                "source": "https://github.com/phpMv/phpMv-UI/tree/2.3.18"
+                "source": "https://github.com/phpMv/phpMv-UI/tree/2.3.21"
             },
-            "time": "2021-02-06T11:14:16+00:00"
+            "time": "2021-03-14T00:54:36+00:00"
         },
         {
             "name": "phpmv/ubiquity",
-            "version": "2.4.2",
+            "version": "2.4.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/ubiquity.git",
-                "reference": "474ab7bc9c2a66dca2f5aeec263fa6ea03ae1f65"
+                "reference": "684c0dd5e319b8feacd1c2e098d1008ef6458538"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity/zipball/474ab7bc9c2a66dca2f5aeec263fa6ea03ae1f65",
-                "reference": "474ab7bc9c2a66dca2f5aeec263fa6ea03ae1f65",
+                "url": "https://api.github.com/repos/phpMv/ubiquity/zipball/684c0dd5e319b8feacd1c2e098d1008ef6458538",
+                "reference": "684c0dd5e319b8feacd1c2e098d1008ef6458538",
                 "shasum": ""
             },
             "require": {
@@ -156,13 +156,67 @@
             ],
             "support": {
                 "issues": "https://github.com/phpMv/ubiquity/issues",
-                "source": "https://github.com/phpMv/ubiquity/tree/2.4.2"
+                "source": "https://github.com/phpMv/ubiquity/tree/2.4.3"
             },
-            "time": "2021-02-08T01:40:51+00:00"
+            "time": "2021-03-07T19:10:29+00:00"
+        },
+        {
+            "name": "phpmv/ubiquity-security",
+            "version": "0.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/phpMv/ubiquity-security.git",
+                "reference": "d186bd411cb98d16807d433e91f2a640e7befca6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/phpMv/ubiquity-security/zipball/d186bd411cb98d16807d433e91f2a640e7befca6",
+                "reference": "d186bd411cb98d16807d433e91f2a640e7befca6",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=7.4"
+            },
+            "type": "extension",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ubiquity\\": "src/Ubiquity/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "Apache-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-Christophe HERON",
+                    "email": "myaddressmail@gmail.com",
+                    "role": "Lead developer"
+                }
+            ],
+            "description": "Security module for Ubiquity framework",
+            "keywords": [
+                "framework",
+                "mvc",
+                "php",
+                "php-framework",
+                "security",
+                "tools"
+            ],
+            "support": {
+                "issues": "https://github.com/phpMv/ubiquity-security/issues",
+                "source": "https://github.com/phpMv/ubiquity-security/tree/0.0.2"
+            },
+            "time": "2021-01-03T18:43:54+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
@@ -221,7 +275,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.1"
             },
             "funding": [
                 {
@@ -241,16 +295,16 @@
         },
         {
             "name": "symfony/polyfill-mbstring",
-            "version": "v1.22.0",
+            "version": "v1.22.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-mbstring.git",
-                "reference": "f377a3dd1fde44d37b9831d68dc8dea3ffd28e13"
+                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/f377a3dd1fde44d37b9831d68dc8dea3ffd28e13",
-                "reference": "f377a3dd1fde44d37b9831d68dc8dea3ffd28e13",
+                "url": "https://api.github.com/repos/symfony/polyfill-mbstring/zipball/5232de97ee3b75b0360528dae24e73db49566ab1",
+                "reference": "5232de97ee3b75b0360528dae24e73db49566ab1",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +355,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.0"
+                "source": "https://github.com/symfony/polyfill-mbstring/tree/v1.22.1"
             },
             "funding": [
                 {
@@ -317,20 +371,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2021-01-22T09:19:47+00:00"
         },
         {
             "name": "twig/twig",
-            "version": "v3.2.1",
+            "version": "v3.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/twigphp/Twig.git",
-                "reference": "f795ca686d38530045859b0350b5352f7d63447d"
+                "reference": "1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/twigphp/Twig/zipball/f795ca686d38530045859b0350b5352f7d63447d",
-                "reference": "f795ca686d38530045859b0350b5352f7d63447d",
+                "url": "https://api.github.com/repos/twigphp/Twig/zipball/1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5",
+                "reference": "1f3b7e2c06cc05d42936a8ad508ff1db7975cdc5",
                 "shasum": ""
             },
             "require": {
@@ -345,7 +399,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.2-dev"
+                    "dev-master": "3.3-dev"
                 }
             },
             "autoload": {
@@ -381,7 +435,7 @@
             ],
             "support": {
                 "issues": "https://github.com/twigphp/Twig/issues",
-                "source": "https://github.com/twigphp/Twig/tree/v3.2.1"
+                "source": "https://github.com/twigphp/Twig/tree/v3.3.0"
             },
             "funding": [
                 {
@@ -393,22 +447,22 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-05T15:40:36+00:00"
+            "time": "2021-02-08T09:54:36+00:00"
         }
     ],
     "packages-dev": [
         {
             "name": "czproject/git-php",
-            "version": "v3.18.1",
+            "version": "v3.18.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/czproject/git-php.git",
-                "reference": "db664a8d5a1fbfd33e1cdd6ae65bc411bd18dc73"
+                "reference": "cb3bfc6f1e487e572870afae5d52ef3c7d250d8a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/czproject/git-php/zipball/db664a8d5a1fbfd33e1cdd6ae65bc411bd18dc73",
-                "reference": "db664a8d5a1fbfd33e1cdd6ae65bc411bd18dc73",
+                "url": "https://api.github.com/repos/czproject/git-php/zipball/cb3bfc6f1e487e572870afae5d52ef3c7d250d8a",
+                "reference": "cb3bfc6f1e487e572870afae5d52ef3c7d250d8a",
                 "shasum": ""
             },
             "require": {
@@ -439,9 +493,9 @@
             ],
             "support": {
                 "issues": "https://github.com/czproject/git-php/issues",
-                "source": "https://github.com/czproject/git-php/tree/v3.18.1"
+                "source": "https://github.com/czproject/git-php/tree/v3.18.2"
             },
-            "time": "2020-07-03T08:02:12+00:00"
+            "time": "2021-02-15T11:41:33+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -545,12 +599,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/ubiquity-attributes.git",
-                "reference": "f7a1c63fd10896ccad768710762975e7b5c166e9"
+                "reference": "a7f0c6d3899eb6715a879c2c9a28b67d89158869"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity-attributes/zipball/f7a1c63fd10896ccad768710762975e7b5c166e9",
-                "reference": "f7a1c63fd10896ccad768710762975e7b5c166e9",
+                "url": "https://api.github.com/repos/phpMv/ubiquity-attributes/zipball/a7f0c6d3899eb6715a879c2c9a28b67d89158869",
+                "reference": "a7f0c6d3899eb6715a879c2c9a28b67d89158869",
                 "shasum": ""
             },
             "require": {
@@ -591,22 +645,22 @@
             ],
             "support": {
                 "issues": "https://github.com/phpMv/ubiquity-attributes/issues",
-                "source": "https://github.com/phpMv/ubiquity-attributes/tree/0.0.5"
+                "source": "https://github.com/phpMv/ubiquity-attributes/tree/0.0.7"
             },
-            "time": "2021-01-10T10:45:00+00:00"
+            "time": "2021-03-07T01:35:41+00:00"
         },
         {
             "name": "phpmv/ubiquity-dev",
-            "version": "0.1.10",
+            "version": "0.1.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/ubiquity-dev.git",
-                "reference": "7b799d0fceb21254d3c6d0a818d889a25690af99"
+                "reference": "a7644b86939616da3550eeb419b5a55cfc4c2338"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity-dev/zipball/7b799d0fceb21254d3c6d0a818d889a25690af99",
-                "reference": "7b799d0fceb21254d3c6d0a818d889a25690af99",
+                "url": "https://api.github.com/repos/phpMv/ubiquity-dev/zipball/a7644b86939616da3550eeb419b5a55cfc4c2338",
+                "reference": "a7644b86939616da3550eeb419b5a55cfc4c2338",
                 "shasum": ""
             },
             "require": {
@@ -645,22 +699,22 @@
             ],
             "support": {
                 "issues": "https://github.com/phpMv/ubiquity-dev/issues",
-                "source": "https://github.com/phpMv/ubiquity-dev/tree/0.1.10"
+                "source": "https://github.com/phpMv/ubiquity-dev/tree/0.1.13"
             },
-            "time": "2021-02-07T23:57:15+00:00"
+            "time": "2021-03-04T18:52:08+00:00"
         },
         {
             "name": "phpmv/ubiquity-webtools",
-            "version": "2.4.4",
+            "version": "2.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpMv/ubiquity-webtools.git",
-                "reference": "7ebf1f0d3d38cf875b3b6d74ce322e81bb970aef"
+                "reference": "33d22a071cc2d2b4d47e99cf4be6e71aad5d4a45"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpMv/ubiquity-webtools/zipball/7ebf1f0d3d38cf875b3b6d74ce322e81bb970aef",
-                "reference": "7ebf1f0d3d38cf875b3b6d74ce322e81bb970aef",
+                "url": "https://api.github.com/repos/phpMv/ubiquity-webtools/zipball/33d22a071cc2d2b4d47e99cf4be6e71aad5d4a45",
+                "reference": "33d22a071cc2d2b4d47e99cf4be6e71aad5d4a45",
                 "shasum": ""
             },
             "require": {
@@ -701,9 +755,9 @@
             ],
             "support": {
                 "issues": "https://github.com/phpMv/ubiquity-webtools/issues",
-                "source": "https://github.com/phpMv/ubiquity-webtools/tree/2.4.4"
+                "source": "https://github.com/phpMv/ubiquity-webtools/tree/2.4.6"
             },
-            "time": "2021-02-07T01:17:08+00:00"
+            "time": "2021-03-07T11:59:53+00:00"
         },
         {
             "name": "psr/log",
@@ -764,7 +818,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": ">=7.4"
+        "php": ">=8.0"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"

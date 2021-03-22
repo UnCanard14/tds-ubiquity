@@ -10,7 +10,7 @@ class UiStoreService extends UIService {
     public function __construct(Controller $controller) {
         parent::__construct($controller);
         if(!URequest::isAjax()) {
-            $this->jquery->getHref('a[data-target]', '', ['hasLoader' => 'internal', 'historize' => false,'listenerOn'=>'body']);
+            $this->jquery->getHref('a[data-target]', '', ['hasLoader' => 'internal', 'historize' => true,'listenerOn'=>'body']);
         }
     }
 
