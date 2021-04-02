@@ -1,1 +1,15 @@
 <!--View associated to newBasket action of MainController controller -->
+<div class="ui grid ">
+    <div class="ui wide column">
+        <div class="ui top attached header">Nouveau Panier</div>
+        <div class="ui attached segment">
+            <form class="ui form" action="{{ path('newBasket') }}" method="post">
+                <div class="field">
+                    <label>Name</label>
+                    <input type="text" name="name" placeholder="Name">
+                </div>
+                <button class="ui button" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

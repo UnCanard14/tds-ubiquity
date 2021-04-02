@@ -16,6 +16,7 @@ namespace controllers;
  use Ubiquity\controllers\auth\WithAuthTrait;
  use Ubiquity\controllers\Router;
  use Ubiquity\orm\DAO;
+ use Ubiquity\utils\http\URequest;
  use Ubiquity\utils\http\UResponse;
  use Ubiquity\utils\http\USession;
 
@@ -83,6 +84,13 @@ class MainController extends ControllerBase{
 
     #[Route ('newBasket', name:'newBasket')]
     public function newBasket(){
+        if(URequest::post("name") != null){
+            echo URequest::post("name");
+            $currentUser = DAO::getById(User::class, USession::get("idUser"), false);
+            $newBaset = new LocalBasket(URequest::post("name"), $currentUser);
+            $newBaset->saveInDatabase();
+            UResponse::header('location', '/'.Router::path('basket'));
+        }
         $this->loadDefaultView();
 //        echo '<pre>';
 //        print_r($orders);
@@ -91,8 +99,7 @@ class MainController extends ControllerBase{
 
     #[Route ('Basket', name:'basket')]
     public function basket(){
-       // $baskets = DAO::getAll(Basket::class, 'idUser= ?', false, [USession::get("idUser")]);
-        $baskets = USession::get('defaultBasket');
+        $baskets = DAO::getAll(Basket::class, 'idUser= ?', false, [USession::get("idUser")]);
         $this->loadDefaultView(['baskets'=>$baskets]);
     }
 
@@ -117,35 +124,32 @@ class MainController extends ControllerBase{
 
 	#[Route(path: "addArticleToDefaultBasket/{idProduct}",name: "addArticleToDefaultBasket")]
 	public function addArticleToDefaultBasket($idProduct){
-//        $basket = USession::get('defaultBasket');
-//        $Basketdetails = new Basketdetail();
-//        $Basketdetails->setIdProduct($idProduct);
-//        $Basketdetails->setQuantity(1);
-//        $basket->setBasketdetails($Basketdetails);
-//        USession::set('defaultBasket',$basket);
         $article = DAO::getById(Product::class, $idProduct, false);
-        $article2 = DAO::getById(Product::class, 5, false);
-
-        $localBasket = new LocalBasket("Default", USession::get("idUser"));
-
-        $localBasket->addProduct($article, 3);
-        $localBasket->addProduct($article, 5);
-        $localBasket->addProduct($article2, 5);
-        $localBasket->saveInDatabase();
-//        $localBasket->addProduct(5, 3);
-
-       // UResponse::header('location', '/');
-
-  /*      if(DAO::save($Basketdetails)){
-            UResponse::header('location', '/');
-        }else{
-            echo $Basketdetails.'not added in database';
-        }*/
+        $localBasket = USession::get('defaultBasket');
+        $localBasket->addProduct($article, 1);
+        UResponse::header('location', '/'.Router::path('store'));
 	}
 
 	#[Route(path: "addArticleToSpecificBasket/{idBasket}/{idProduct}",name: "addArticleToSpecificBasket")]
 	public function addArticleToSpecificBasket($idBasket, $idProduct){
-		
+        $basket = DAO::getById(Basket::class, $idBasket, false);
+        $article = DAO::getById(Product::class, $idProduct, false);
+        $basketDetail = new Basketdetail();
+        $basketDetail->setProduct($article);
+        $basketDetail->setBasket($basket);
+        $basketDetail->setQuantity(1);
+        UResponse::header('location', '/'.Router::path('store'));
+    }
+
+
+	#[Route(path: "currentBasket",name: "main.currentBasket")]
+	public function currentBasket(){
+        $localBasket = USession::get('defaultBasket');
+        $products = $localBasket->getProducts();
+        $quantity = $localBasket->getQuantity();
+        $totalDiscount = $localBasket->getTotalDiscount();
+        $fullPrice = $localBasket->getTotalFullPrice();
+        $this->loadDefaultView(['products'=>$products, 'fullePrice'=> $fullPrice, 'totalDiscount'=>$totalDiscount, 'quantity'=>$quantity]);
 	}
 
 }

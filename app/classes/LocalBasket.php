@@ -25,6 +25,7 @@ class LocalBasket
         $this->products = array();
     }
 
+
     public function addProduct($article, $quantity){
         if(!isset ($this->products[$article->getId()])){
             $this->products[$article->getId()]['quantity'] = $quantity;
@@ -34,13 +35,17 @@ class LocalBasket
         }
     }
 
+    public function getProducts(){
+        return $this->products;
+    }
+
     public function updateQuantity($article, $quantity){
         $this->products[$article->getId()]['quantity'] = $quantity;
     }
 
     public function getTotalFullPrice(){
         foreach ($this->products as $key => $value){
-            $this->total += $value['product']->getPrice();
+            $this->total += $value['product']->getPrice() * $value['quantity'];
         }
         return $this->total;
     }
@@ -63,20 +68,28 @@ class LocalBasket
 
 
     public function saveInDatabase(){
-        $basket = new Basket();
-        $basket->setUser($this->user);
-        $basket->setName($this->name);
-
-        foreach ($this->products as $key => $value){
-            $Basketdetails = new Basketdetail();
-            $Basketdetails->setBasket($basket);
-            $Basketdetails->setIdProduct($key);
-            $Basketdetails->setQuantity($value['quantity']);
+        try {
+            DAO::beginTransaction();
+            $basket = new Basket();
+            $basket->setName($this->name);
+            $basket->setUser($this->user);
+            if (DAO::save($basket)) {
+                foreach ($this->products as $value) {
+                    $basketDetail = new Basketdetail();
+                    $basketDetail->setBasket($basket);
+                    if(isset($value['product']) && isset($value['quantity'])){
+                        $basketDetail->setProduct($value['product']);
+                        $basketDetail->setQuantity($value['quantity']);
+                    }
+                    DAO::save($basketDetail);
+                }
+            }
+            return DAO::commit();
         }
-//        if(!DAO::save($Basketdetails)){
-//            return false;
-//        }
-        return true;
+        catch(\Exception $e){
+            DAO::rollBack();
+            return false;
+        }
     }
 
 }

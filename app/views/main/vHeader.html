@@ -19,6 +19,14 @@
 			<div class="ui inverted secondary menu">
 				<a href="{{ path('home') }}" class="item">Home</a>
 				<div class="item">{{ _userInfo|raw }}</div>
+				<div class="right menu">
+					<a href="{{ path('main.currentBasket') }}" class="ui vertical animated button item" tabindex="0">
+						<div class="hidden content">Basket</div>
+						<div class="visible content">
+							<i class="shop icon"></i>
+						</div>
+					</a>
+				</div>
 			</div>
 		</div>
 	</div>

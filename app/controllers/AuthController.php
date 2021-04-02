@@ -1,5 +1,6 @@
 <?php
 namespace controllers;
+use classes\LocalBasket;
 use models\Basket;
 use models\Basketdetail;
 use models\User;
@@ -42,10 +43,8 @@ class AuthController extends \Ubiquity\controllers\auth\AuthController{
                 $user = DAO::getOne(User::class, 'email= ?', false, [$email]);
                 if(isset($user) && $user->getPassword() == $password) {
                     USession::set('idUser', $user->getId());
-                    $basket = new Basket();
-                    $basket->setName("Default");
-                    $basket->setUser($user);
-                    USession::set('defaultBasket', $basket);
+                    $LocalBasket = new LocalBasket("_current_", $user);
+                    USession::set('defaultBasket', $LocalBasket);
                     return $user;
                 }
             }
