@@ -3,12 +3,29 @@
     <div class="ui wide column">
         <div class="ui top attached header">Mon Panier</div>
         <div class="ui attached segment">
-            {% for product in products %}
-                <li>{{ product.product.name }} | {{ product.quantity }}</li>
-            {% endfor %}
+            <form id="frmBasket" name="frmBasket">
+                {% for product in products %}
+                    <li>
+                        <span>{{ product.product.name }}</span>
+                        <input type="hidden" name="id[]" value="{{ product.product.id }}">
+                        <input type="number" name="quantity[]" min="0" max="100" value="{{ product.quantity }}">
+                        {#<input type="number" min="0" max="100" value="{{ product.quantity }}">#}
+                        {#<input type="hidden" name="id" value="{{ product.product.id }}">#}
+                        <a class="ui button small" href='{{ path('store') }}'>Supprimer le produit</a>
+                    </li>
+                {% endfor %}
+            </form>
         </div>
+        <div class="ui segment">
+            <div claas="ui segment" id="toUpdate">
+            <p>Le prix : {{ fullePrice }} <br>
+                Réduction : {{ totalDiscount }}<br>
+                Quantité : {{ quantity }}</p>
+            </div>
+            <a class="ui button red" href='{{ path('currentBasket') }}'>Vider le panier</a>
+            <a class="ui button" href='{{ path('orderingCollection') }}'>Valider panier</a>
+        </div>
+        </divc>
     </div>
-    {{ fullePrice }}
-    {{ totalDiscount }}
-    {{ quantity }}
 </div>
+{{ script_foot | raw }}

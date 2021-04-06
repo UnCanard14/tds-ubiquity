@@ -3,6 +3,7 @@
 
 namespace classes;
 
+use Ajax\semantic\widgets\datatable\DataTable;
 use models\Product;
 use ArrayObject;
 use models\Basket;
@@ -10,86 +11,111 @@ use models\Basketdetail;
 use models\User;
 use Ubiquity\orm\DAO;
 use Ubiquity\utils\http\UResponse;
+use Ubiquity\utils\http\USession;
 
 class LocalBasket
 {
     private $name;
-    private $products;
+    private $basket;
     private $user;
+    private $products;
     private $total;
 
-    public function __construct($name, $user){
-        $this->name = $name;
-        $this->user = $user;
-        $this->total = 0;
-        $this->products = array();
+    public function __construct($id, $basket)
+    {
+        $this->idBasket = $basket->getId();
+        $this->basket = $basket;
+//        $this->basket = DAO::getById(Basketdetail::class,$id,false);
+//        $this->basket = new Basket();
+//        $this->basket->setName($this->name);
+//        $this->basket->setUser($this->user);
+//
+//        $this->name = $name;
+//        $this->user = $user;
+//        $this->total = 0;
     }
 
 
-    public function addProduct($article, $quantity){
-        if(!isset ($this->products[$article->getId()])){
-            $this->products[$article->getId()]['quantity'] = $quantity;
-            $this->products[$article->getId()]['product'] = $article;
+    public function addProduct($article, $quantity)
+    {
+        if(DAO::getOne(Basketdetail::class,'idProduct = ?',false,[$article->getId()])){
+            $this->jslog("There already a product");
         }else{
-            $this->products[$article->getId()]['quantity'] += $quantity;
+            $this->jslog("Add".$article->getName(). "product in ". $quantity);
+
+            $basketDetail = new Basketdetail();
+            $basketDetail->setBasket($this->basket);
+            echo '<pre>';
+            print_r($basketDetail);
+            echo '</pre>';
+            $basketDetail->setProduct($article);
+            $basketDetail->setQuantity($quantity);
+            DAO::save($basketDetail);
         }
     }
 
-    public function getProducts(){
-        return $this->products;
+    public function getProducts()
+    {
+        $baskets = DAO::getAll(Basket::class, 'id= ?', ['basketdetails.product'], [$this->idBasket]);
+        return $baskets;
     }
 
-    public function updateQuantity($article, $quantity){
-        $this->products[$article->getId()]['quantity'] = $quantity;
+    //ok
+    public function clearBasket()
+    {
+        if($res=DAO::deleteAll(Basketdetail::class, 'id = ?',[$this->idBasket])){
+            return $res;
+        }
+        return -1;
     }
 
-    public function getTotalFullPrice(){
-        foreach ($this->products as $key => $value){
-            $this->total += $value['product']->getPrice() * $value['quantity'];
+    //ok
+    public function updateQuantity($article, $quantity)
+    {
+        $basketdetail=DAO::getOne(Basketdetail::class,'idProduct = ?',false,[$article->get]);
+        $basketdetail->setQuantity($quantity);
+        if(DAO::save($basketdetail)){
+            return 1;
         }
-        return $this->total;
+        return -1;
     }
 
-    public function getTotalDiscount(){
-        $priceDscount = 0;
-        foreach ($this->products as $key => $value){
-            $priceDscount += $value['product']->getPrice() - $value['product']->getPromotion();
+    public function getTotalFullPrice()
+    {
+        $baskets = DAO::getAll(Basket::class, 'id= ?', ['basketdetails.product'], [$this->idBasket]);
+        foreach ($baskets as $key => $value){
+            echo $key;
         }
-        return $priceDscount;
+//        $total = $this->total;
+//        foreach ($this->products as $key => $value) {
+//            $total += $value['product']->getPrice() * $value['quantity'];
+//        }
+//        return $total;
     }
 
-    public function getQuantity(){
-        $count = 0;
-        foreach ($this->products as $key => $value){
-            $count += $value['quantity'];
+    public function getTotalDiscount()
+    {
+        $baskets = DAO::getAll(Basket::class, 'id= ?', ['basketdetails.product'], [$this->idBasket]);
+        foreach ($baskets as $key => $value){
+            echo $key;
         }
-        return $count;
+//        $priceDscount = 0;
+//        foreach ($this->products as $key => $value) {
+//            $priceDscount += $value['product']->getPrice() - $value['product']->getPromotion();
+//        }
+//        return $priceDscount;
     }
 
+    public function getQuantity()
+    {
+        $baskets = DAO::getAll(Basket::class, 'id= ?', ['basketdetails.product'], [$this->idBasket]);
+        foreach ($baskets as $key => $value){
+            echo $key;
+        }
+    }
 
-    public function saveInDatabase(){
-        try {
-            DAO::beginTransaction();
-            $basket = new Basket();
-            $basket->setName($this->name);
-            $basket->setUser($this->user);
-            if (DAO::save($basket)) {
-                foreach ($this->products as $value) {
-                    $basketDetail = new Basketdetail();
-                    $basketDetail->setBasket($basket);
-                    if(isset($value['product']) && isset($value['quantity'])){
-                        $basketDetail->setProduct($value['product']);
-                        $basketDetail->setQuantity($value['quantity']);
-                    }
-                    DAO::save($basketDetail);
-                }
-            }
-            return DAO::commit();
-        }
-        catch(\Exception $e){
-            DAO::rollBack();
-            return false;
-        }
+    private function jslog($messageLog){
+        echo "<script> console.log('$messageLog ')</script>";
     }
 
 }

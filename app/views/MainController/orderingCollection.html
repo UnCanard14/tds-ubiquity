@@ -1,0 +1,23 @@
+<!--View associated to orderingCollection action of MainController controller -->
+<form method="post" action="{{ path('summary') }}">
+    <div class="ui grid ">
+        <div class="ui wide column">
+            <div class="ui top attached header">Ma Commande</div>
+            <div class="ui attached segment">
+
+                <select name="slot" id="pet-select">
+                    <option value="">--Please choose an option--</option>
+                    {% for slot in slots %}
+                        <option value="{{ slot.id }}">{{ slot.slotDate }}</option>
+                    {% endfor %}
+                </select>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="ui segment">
+        <a class="ui button red" href='{{ path('currentBasket') }}'>Vider le panier</a>
+        <input type="submit" class="ui button"></input>
+    </div>
+</form>

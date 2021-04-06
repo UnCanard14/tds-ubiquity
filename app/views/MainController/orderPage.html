@@ -2,6 +2,8 @@
 <div class="ui grid ">
         <div class="ui wide column">
                 <div class="ui top attached header">Mes commandes</div>
+                <div class="ui calendar" id="inline_calendar">
+                </div>
                 <div class="ui attached segment">
                         {% for order in orders %}
                                 <li>{{ order.dateCreation }}</li>
@@ -9,3 +11,4 @@
                 </div>
         </div>
 </div>
+
