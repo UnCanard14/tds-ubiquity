@@ -72,7 +72,7 @@ class LocalBasket
     //ok
     public function updateQuantity($article, $quantity)
     {
-        $basketdetail=DAO::getOne(Basketdetail::class,'idProduct = ?',false,[$article->get]);
+        $basketdetail=DAO::getOne(Basketdetail::class,'idProduct = ?',false,[$article->getId()]);
         $basketdetail->setQuantity($quantity);
         if(DAO::save($basketdetail)){
             return 1;
@@ -82,36 +82,35 @@ class LocalBasket
 
     public function getTotalFullPrice()
     {
-        $baskets = DAO::getAll(Basket::class, 'id= ?', ['basketdetails.product'], [$this->idBasket]);
-        foreach ($baskets as $key => $value){
-            echo $key;
+        $baskets = DAO::getById(Basket::class, $this->idBasket, ['basketdetails.product']);
+        $basketDetails = $baskets->getBasketdetails();
+        $somme =0;
+        foreach ($basketDetails as $basketDetail){
+            $somme += $basketDetail->getProduct()->getPrice() * $basketDetail->getQuantity();
         }
-//        $total = $this->total;
-//        foreach ($this->products as $key => $value) {
-//            $total += $value['product']->getPrice() * $value['quantity'];
-//        }
-//        return $total;
+        return $somme;
     }
 
     public function getTotalDiscount()
     {
-        $baskets = DAO::getAll(Basket::class, 'id= ?', ['basketdetails.product'], [$this->idBasket]);
-        foreach ($baskets as $key => $value){
-            echo $key;
+        $baskets = DAO::getById(Basket::class, $this->idBasket, ['basketdetails.product']);
+        $basketDetails = $baskets->getBasketdetails();
+        $somme =0;
+        foreach ($basketDetails as $basketDetail){
+            $somme += $basketDetail->getProduct()->getPromotion() * $basketDetail->getQuantity();
         }
-//        $priceDscount = 0;
-//        foreach ($this->products as $key => $value) {
-//            $priceDscount += $value['product']->getPrice() - $value['product']->getPromotion();
-//        }
-//        return $priceDscount;
+        return $somme;
     }
 
     public function getQuantity()
     {
-        $baskets = DAO::getAll(Basket::class, 'id= ?', ['basketdetails.product'], [$this->idBasket]);
-        foreach ($baskets as $key => $value){
-            echo $key;
+        $baskets = DAO::getById(Basket::class, $this->idBasket, ['basketdetails.product']);
+        $basketDetails = $baskets->getBasketdetails();
+        $somme =0;
+        foreach ($basketDetails as $basketDetail){
+            $somme += $basketDetail->getQuantity();
         }
+        return $somme;
     }
 
     private function jslog($messageLog){

@@ -126,9 +126,9 @@ class MainController extends ControllerBase{
         print_r($basket);
         echo '</pre>';*/
         $localBasket = new LocalBasket($basket->getId(), $basket);
-        $basket = DAO::getOne(Product::class,'id = ?',false,[10]);
-        $localBasket->addProduct($basket, 2);
-
+        $basket = DAO::getOne(Product::class,'id = ?',false,[129]);
+        echo $localBasket->addProduct($basket,2);
+        echo $localBasket->getQuantity();
         $this->loadDefaultView();
     }
 
