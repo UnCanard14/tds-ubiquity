@@ -109,27 +109,16 @@ class MainController extends ControllerBase{
     //Permet de créer un nouveau panier
     #[Route ('newBasket', name:'newBasket')]
     public function newBasket(){
-//        if(URequest::post("name") != null){
-//            echo URequest::post("name");
-//            $currentUser = DAO::getById(User::class, USession::get("idUser"), false);
-//            $newBaset = new LocalBasket(URequest::post("name"), $currentUser);
-//            $newBaset->saveInDatabase();
-//            UResponse::header('location', '/'.Router::path('basket'));
-//        }
-/*        $baskets = DAO::getAll(Basket::class, 'idUser= ?', ['basketdetails.product'], [USession::get("idUser")]);
-        echo '<pre>';
-        print_r($baskets);
-        echo '</pre>';*/
-
-        $basket = DAO::getOne(Basket::class,'name = ?',false,['_default']);
-/*        echo '<pre>';
-        print_r($basket);
-        echo '</pre>';*/
-        $localBasket = new LocalBasket($basket->getId(), $basket);
-        $basket = DAO::getOne(Product::class,'id = ?',false,[129]);
-        echo $localBasket->addProduct($basket,2);
-        echo $localBasket->getQuantity();
-        $this->loadDefaultView();
+        $reponse = URequest::post("name");
+        if($reponse != null && $reponse != "_default"){
+            $currentUser = DAO::getById(User::class, USession::get("idUser"), false);
+            $newBaset = new Basket();
+            $newBaset->setUser($currentUser);
+            $newBaset->setName($reponse);
+            UResponse::header('location', '/'.Router::path('basket'));
+        }
+        $baskets = DAO::getAll(Basket::class, 'idUser= ?', ['basketdetails.product'], [USession::get("idUser")]);
+        $this->loadDefaultView(['baskets'=>$baskets]);
     }
 
     //Affiche la liste des paniers de l'utilisateur
@@ -142,29 +131,17 @@ class MainController extends ControllerBase{
     //Affiche le pannier en cours aves ses détails
     #[Route(path: "currentBasket",name: "main.currentBasket")]
     public function currentBasket(){
-//        $products=DAO::getAll(Product::class,'1=1 order by idSection',['section']);
-//        $dt=$this->jquery->semantic()->dataTable('dt',Product::class,$products);
-//        $dt->setFields(['name','section']);
-//        $dt->fieldAsHeader('section');
-//        $dt->fieldAsLabel('name');
-//        $dt->setGroupByFields([1]);
         $localBasket = USession::get('defaultBasket');
-        $products = $localBasket->getProducts();
-//        echo '<pre>';
-//          print_r($products);
-//        echo '</pre>';
+        $basketDetails = $localBasket->getProducts();
         $quantity = $localBasket->getQuantity();
         $totalDiscount = $localBasket->getTotalDiscount();
         $fullPrice = $localBasket->getTotalFullPrice();
         $this->jquery->postFormOn('change','input',Router::path('updateBasketQuantity'),'frmBasket','#toUpdate');
-        $this->jquery->renderDefaultView(['products'=>$products, 'fullePrice'=> $fullPrice, 'totalDiscount'=>$totalDiscount, 'quantity'=>$quantity]);
+        $this->jquery->renderDefaultView(['basketDetails'=>$basketDetails, 'fullePrice'=> $fullPrice, 'totalDiscount'=>$totalDiscount, 'quantity'=>$quantity]);
     }
 
     #[Route(path: "updateBasketQuantity",name: "updateBasketQuantity")]
     public function updateBasketQuantity(){
-        echo '<pre>';
-        print_r($_POST);
-        echo '</pre>';
         $localBasket = USession::get('defaultBasket');
         $quantity = $localBasket->getQuantity();
         $totalDiscount = $localBasket->getTotalDiscount();
@@ -198,6 +175,14 @@ class MainController extends ControllerBase{
         $localBasket = USession::get('defaultBasket');
         $localBasket->clearBasket();
         UResponse::header('location', '/'.Router::path('basket'));
+    }
+
+    #[Route(path: "selectBasket/{idBasket}",name: "selectBasket")]
+    public function selectBasket($idBasket){
+        $basket = DAO::getById(Basket::class, $idBasket, false);
+        $basket = new LocalBasket($basket);
+        USession::set('defaultBasket', $basket);
+        UResponse::header('location', '/'.Router::path('store'));
     }
 
     //****************************************** Partie commande *****************************************

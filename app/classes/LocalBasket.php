@@ -15,24 +15,12 @@ use Ubiquity\utils\http\USession;
 
 class LocalBasket
 {
-    private $name;
     private $basket;
-    private $user;
-    private $products;
-    private $total;
 
-    public function __construct($id, $basket)
+    public function __construct($basket)
     {
         $this->idBasket = $basket->getId();
         $this->basket = $basket;
-//        $this->basket = DAO::getById(Basketdetail::class,$id,false);
-//        $this->basket = new Basket();
-//        $this->basket->setName($this->name);
-//        $this->basket->setUser($this->user);
-//
-//        $this->name = $name;
-//        $this->user = $user;
-//        $this->total = 0;
     }
 
 
@@ -56,8 +44,8 @@ class LocalBasket
 
     public function getProducts()
     {
-        $baskets = DAO::getAll(Basket::class, 'id= ?', ['basketdetails.product'], [$this->idBasket]);
-        return $baskets;
+        $baskets = DAO::getById(Basket::class, $this->idBasket, ['basketdetails.product']);
+        return $baskets->getBasketdetails();
     }
 
     //ok

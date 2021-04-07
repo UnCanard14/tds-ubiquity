@@ -4,13 +4,11 @@
         <div class="ui top attached header">Mon Panier</div>
         <div class="ui attached segment">
             <form id="frmBasket" name="frmBasket">
-                {% for product in products %}
+                {% for basketDetail in basketDetails %}
                     <li>
-                        <span>{{ product.product.name }}</span>
-                        <input type="hidden" name="id[]" value="{{ product.product.id }}">
-                        <input type="number" name="quantity[]" min="0" max="100" value="{{ product.quantity }}">
-                        {#<input type="number" min="0" max="100" value="{{ product.quantity }}">#}
-                        {#<input type="hidden" name="id" value="{{ product.product.id }}">#}
+                        <span>{{ basketDetail.product.name }}</span>
+                        <input type="hidden" name="id[]" value="{{ basketDetail.product.id }}">
+                        <input type="number" name="quantity[]" min="0" max="100" value="{{ basketDetail.quantity }}">
                         <a class="ui button small" href='{{ path('store') }}'>Supprimer le produit</a>
                     </li>
                 {% endfor %}

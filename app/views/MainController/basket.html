@@ -4,7 +4,10 @@
                 <div class="ui top attached header">Mes panniers</div>
                 <div class="ui attached segment">
                         {% for basket in baskets %}
-                                <li>{{ basket.name }}</li>
+                                <li>
+                                        {{ basket.name }}
+                                        <a class="ui button" href='{{ path('selectBasket',[basket.id]) }}'>Sélectioner</a>
+                                </li>
                         {% endfor %}
                 </div>
         </div>

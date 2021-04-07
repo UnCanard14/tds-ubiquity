@@ -43,9 +43,24 @@ class AuthController extends \Ubiquity\controllers\auth\AuthController{
                 $user = DAO::getOne(User::class, 'email= ?', false, [$email]);
                 if(isset($user) && $user->getPassword() == $password) {
                     USession::set('idUser', $user->getId());
-                    $LocalBasket = new LocalBasket("_current_", $user);
-                    USession::set('defaultBasket', $LocalBasket);
-                    return $user;
+                    $basket = DAO::getOne(Basket::class,'name = ?',false,['_default']);
+                    if(!$basket){
+                        $basket = new Basket();
+                        $basket->setName('_default');
+                        $basket->setUser($user);
+                        if(DAO::save($basket)){
+                            $LocalBasket = new LocalBasket(DAO::getOne(Basket::class,'name = ?',false,['_default']));
+                            USession::set('defaultBasket', $LocalBasket);
+                            return $user;
+                        }else{
+                            echo "BDD erreur user";
+                        }
+                    }else{
+                        $LocalBasket = new LocalBasket($basket);
+                        USession::set('defaultBasket', $LocalBasket);
+                        return $user;
+                    }
+
                 }
             }
 			//Loading from the database the user corresponding to the parameters

@@ -13,3 +13,15 @@
         </div>
     </div>
 </div>
+
+
+<div class="ui grid ">
+    <div class="ui wide column">
+        <div class="ui top attached header">Mes panniers</div>
+        <div class="ui attached segment">
+            {% for basket in baskets %}
+                <li>{{ basket.name }}</li>
+            {% endfor %}
+        </div>
+    </div>
+</div>
