@@ -143,6 +143,9 @@ class MainController extends ControllerBase{
     #[Route(path: "updateBasketQuantity",name: "updateBasketQuantity")]
     public function updateBasketQuantity(){
         $localBasket = USession::get('defaultBasket');
+        for ($i = 0; $i < count($_POST["id"]); $i++) {
+            $localBasket->updateQuantity(DAO::getOne(Product::class,$_POST["id"][$i],false), $_POST["quantity"][$i]);
+        }
         $quantity = $localBasket->getQuantity();
         $totalDiscount = $localBasket->getTotalDiscount();
         $fullPrice = $localBasket->getTotalFullPrice();
@@ -157,6 +160,13 @@ class MainController extends ControllerBase{
         $localBasket->addProduct($article, 1);
         UResponse::header('location', '/'.Router::path('store'));
 	}
+
+    #[Route(path: "deleteProductFromBasket/{id}",name: "deleteProductFromBasket")]
+    public function deleteProductFromBasket($id){
+        $localBasket = USession::get('defaultBasket');
+        $localBasket->deleteAnArticle($id);
+        UResponse::header('location', '/'.Router::path('main.currentBasket'));
+    }
 
     //Ajoute un article à un panier selectionné
 	#[Route(path: "addArticleToSpecificBasket/{idBasket}/{idProduct}",name: "addArticleToSpecificBasket")]
@@ -213,7 +223,6 @@ class MainController extends ControllerBase{
 		$this->loadDefaultView(['slots'=>$slot]);
 
 	}
-
 
 
 

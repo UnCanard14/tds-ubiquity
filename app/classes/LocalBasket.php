@@ -68,6 +68,14 @@ class LocalBasket
         return -1;
     }
 
+    public function deleteAnArticle($id)
+    {
+        if($res=DAO::delete(Basketdetail::class, $id)){
+            return $res;
+        }
+        return -1;
+    }
+
     public function getTotalFullPrice()
     {
         $baskets = DAO::getById(Basket::class, $this->idBasket, ['basketdetails.product']);
