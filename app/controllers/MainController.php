@@ -75,7 +75,7 @@ class MainController extends ControllerBase{
     public function storePage(){
        $store = DAO::getAll(Product::class, false, false);
        $sections = DAO::getAll(Section::class, false, false);
-       $this->loadDefaultView(['store'=>$store, 'sections'=>$sections]);
+       $this->loadView('MainController/storePage.html',['store'=>$store, 'sections'=>$sections]);
     }
 
     //Affiche la liste des commandes
@@ -149,7 +149,14 @@ class MainController extends ControllerBase{
         $quantity = $localBasket->getQuantity();
         $totalDiscount = $localBasket->getTotalDiscount();
         $fullPrice = $localBasket->getTotalFullPrice();
-        $this->loadDefaultView(['fullePrice'=> $fullPrice, 'totalDiscount'=>$totalDiscount, 'quantity'=>$quantity]);
+        $this->jquery->html('#basketHeader', $this->updateHeaderBasket($localBasket) , true);
+        $this->jquery->renderDefaultView(['fullPrice'=> $fullPrice, 'totalDiscount'=>$totalDiscount, 'quantity'=>$quantity]);
+    }
+
+    public function updateHeaderBasket($basket){
+        $quantity = $basket->getQuantity();
+        $fullPrice = $basket->getTotalFullPrice();
+        return $this->loadView('MainController/updateHeaderBasket.html', compact('quantity', "fullPrice"), true);
     }
 
     //Ajoute un article au panier par default
@@ -158,14 +165,16 @@ class MainController extends ControllerBase{
         $article = DAO::getById(Product::class, $idProduct, false);
         $localBasket = USession::get('defaultBasket');
         $localBasket->addProduct($article, 1);
-        UResponse::header('location', '/'.Router::path('store'));
+        $this->jquery->html('#basketHeader', $this->updateHeaderBasket($localBasket), true);
+        //UResponse::header('location', '/'.Router::path('store'));
+        $this->storePage();
 	}
 
     #[Route(path: "deleteProductFromBasket/{id}",name: "deleteProductFromBasket")]
     public function deleteProductFromBasket($id){
         $localBasket = USession::get('defaultBasket');
-        $localBasket->deleteAnArticle($id);
-        UResponse::header('location', '/'.Router::path('main.currentBasket'));
+        echo $localBasket->deleteAnArticle($id);
+       // UResponse::header('location', '/'.Router::path('main.currentBasket'));
     }
 
     //Ajoute un article à un panier selectionné
@@ -184,7 +193,7 @@ class MainController extends ControllerBase{
     public function clearBasket(){
         $localBasket = USession::get('defaultBasket');
         $localBasket->clearBasket();
-        UResponse::header('location', '/'.Router::path('basket'));
+        UResponse::header('location', '/'.Router::path('currentBasket'));
     }
 
     #[Route(path: "selectBasket/{idBasket}",name: "selectBasket")]
@@ -200,30 +209,37 @@ class MainController extends ControllerBase{
 	#[Route(path: "orderCollection",name: "orderingCollection")]
 	public function orderingCollection(){
         $slots = DAO::getAll(Timeslot::class, 'full= ?', false, [0]);
-        echo '<pre>';
-      //  print_r($slots);
-        echo '</pre>';
-
-
-
-        foreach ($slots as $slot){
-          //  echo $slot->getSlotDate() . "<br>";
-        }
-        //$this->jquery->sc
         $this->loadDefaultView(['slots'=>$slots]);
 	}
 
-
 	#[Route(path: "summary",name: "summary")]
 	public function summary(){
+        $slotID = null;
 		if(URequest::post("slot") != null){
-		    $slot = URequest::post("slot");
+		    $slotID = URequest::post("slot");
         }
-        $slot = DAO::getById(Timeslot::class, $slot, false);
-		$this->loadDefaultView(['slots'=>$slot]);
+        $slot = DAO::getById(Timeslot::class, $slotID, false);
+		$basket = USession::get('defaultBasket');
+		$basketDetails = $basket->getProducts();
+        $quantity = $basket->getQuantity();
+        $totalDiscount = $basket->getTotalDiscount();
+        $fullPrice = $basket->getTotalFullPrice();
+        USession::set("timeSlot", $slot);
+		$this->loadDefaultView(compact("slot", "basketDetails", "quantity", "totalDiscount", "fullPrice"));
 
 	}
 
-
+	#[Route(path: "toOrder",name: "main.toOrder")]
+	public function toOrder(){
+        $basket = USession::get('defaultBasket');
+        $order = new Order();
+        $order->setUser(DAO::getById(User::class, USession::get("idUser"), false));
+        $order->setTimeslot(USession::get("timeSlot"));
+        DAO::beginTransaction();
+        DAO::save($order);
+        $basket->setBasketToOrder($order);
+        DAO::commit();
+        $this->loadDefaultView();
+	}
 
 }

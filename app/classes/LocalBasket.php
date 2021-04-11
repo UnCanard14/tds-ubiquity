@@ -4,6 +4,7 @@
 namespace classes;
 
 use Ajax\semantic\widgets\datatable\DataTable;
+use models\Orderdetail;
 use models\Product;
 use ArrayObject;
 use models\Basket;
@@ -48,10 +49,10 @@ class LocalBasket
         return $baskets->getBasketdetails();
     }
 
-    //ok
     public function clearBasket()
     {
-        if($res=DAO::deleteAll(Basketdetail::class, 'id = ?',[$this->idBasket])){
+        if($res=DAO::deleteAll(Basketdetail::class, 'idBasket = ?',[$this->idBasket])){
+            $this->jslog("Produit supprimé");
             return $res;
         }
         return -1;
@@ -70,7 +71,7 @@ class LocalBasket
 
     public function deleteAnArticle($id)
     {
-        if($res=DAO::delete(Basketdetail::class, $id)){
+        if($res=DAO::deleteAll(Basketdetail::class, "id = ? and idProduct = ?", [$this->idBasket, $id] )){
             return $res;
         }
         return -1;
@@ -109,8 +110,18 @@ class LocalBasket
         return $somme;
     }
 
+    public function setBasketToOrder($order){
+        $productDetails = $this->getProducts();
+        foreach ($productDetails as $productDetail){
+            $newOrderDetail = new Orderdetail();
+            $newOrderDetail->setProduct($productDetail->getProduct());
+            $newOrderDetail->setQuantity($productDetail->getQuantity());
+            $newOrderDetail->setOrder($order);
+            DAO::save($newOrderDetail);
+        }
+    }
+
     private function jslog($messageLog){
         echo "<script> console.log('$messageLog ')</script>";
     }
-
 }

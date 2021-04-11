@@ -1,2 +1,30 @@
 <!--View associated to summary action of MainController controller -->
-{{ slots }}
+
+
+<div class="ui grid ">
+
+    <div class="ui wide column">
+        <div class="ui top attached header">Mon Panier</div>
+        <div class="ui attached segment">
+
+            {% for basketDetail in basketDetails %}
+                <li>
+                    <span>{{ basketDetail.product.name }}</span>
+                    <span>{{ basketDetail.quantity }}</span>
+                </li>
+            {% endfor %}
+
+        </div>
+
+        <div class="ui segment">
+            <div claas="ui segment" id="toUpdate">
+                <p>Le prix : {{ fullPrice }} <br>
+                    Réduction : {{ totalDiscount }}<br>
+                    Quantité : {{ quantity }}</p>
+                    Le : {{ slot.SlotDate }}
+            </div>
+            <a class="ui button red" href='{{ path('clearBasket') }}'>Vider le panier</a>
+            <a class="ui button" href='{{ path('main.toOrder') }}'>Valider le panier</a>
+        </div>
+    </div>
+</div>

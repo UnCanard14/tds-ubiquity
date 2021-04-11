@@ -1,29 +1,34 @@
 <!--View associated to currentBasket action of MainController controller -->
-<div class="ui grid ">
-    <div class="ui wide column">
-        <div class="ui top attached header">Mon Panier</div>
-        <div class="ui attached segment">
-            <form id="frmBasket" name="frmBasket">
+<form id="frmBasket" name="frmBasket" method="post" action="{{ path('orderingCollection') }}">
+    <div class="ui grid ">
+
+        <div class="ui wide column">
+            <div class="ui top attached header">Mon Panier</div>
+            <div class="ui attached segment">
+
                 {% for basketDetail in basketDetails %}
                     <li>
                         <span>{{ basketDetail.product.name }}</span>
                         <input type="hidden" name="id[]" value="{{ basketDetail.product.id }}">
                         <input type="number" name="quantity[]" min="0" max="100" value="{{ basketDetail.quantity }}">
-                        <a class="ui button small" href='{{ path('deleteProductFromBasket',[basketDetail.product.id]) }}'>Supprimer le produit</a>
+                        <a class="ui button small"
+                           href='{{ path('deleteProductFromBasket',[basketDetail.product.id]) }}'>Supprimer le
+                            produit</a>
                     </li>
                 {% endfor %}
-            </form>
-        </div>
-        <div class="ui segment">
-            <div claas="ui segment" id="toUpdate">
-            <p>Le prix : {{ fullePrice }} <br>
-                Réduction : {{ totalDiscount }}<br>
-                Quantité : {{ quantity }}</p>
+
             </div>
-            <a class="ui button red" href='{{ path('currentBasket') }}'>Vider le panier</a>
-            <a class="ui button" href='{{ path('orderingCollection') }}'>Valider panier</a>
+            <div class="ui segment">
+                <div claas="ui segment" id="toUpdate">
+                    <p>Le prix : {{ fullePrice }} <br>
+                        Réduction : {{ totalDiscount }}<br>
+                        Quantité : {{ quantity }}</p>
+                </div>
+                <a class="ui button red" href='{{ path('clearBasket') }}'>Vider le panier</a>
+                <input type="submit" class="ui button" href='{{ path('orderingCollection') }}' value="Valider panier"></input>
+            </div>
+            </div>
         </div>
-        </divc>
     </div>
-</div>
+</form>
 {{ script_foot | raw }}
